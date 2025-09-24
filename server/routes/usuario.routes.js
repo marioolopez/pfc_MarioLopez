@@ -1,9 +1,15 @@
 import { Router } from "express";
-
+import { registrarUsuario, loginUsuario, obtenerUsuarios, obtenerUsuarioPorId, actualizarUsuario, eliminarUsuario } from "../controllers/usuarios.controller.js";
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.json({ message: "Aquí van los usuarios 👤" });
-});
+//rutas
+router.post("/register", registrarUsuario);
+router.post("/login", loginUsuario);
+
+//para el crud de panelAdmin
+router.get("/", obtenerUsuarios);
+router.get("/:id", obtenerUsuarioPorId);
+router.put("/:id", actualizarUsuario);
+router.delete("/:id", eliminarUsuario);
 
 export default router;

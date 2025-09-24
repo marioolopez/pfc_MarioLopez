@@ -12,8 +12,9 @@ import usuarioRoutes from "./routes/usuario.routes.js";
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/api/users", usuarioRoutes);
-app.get("/", (req, res) => res.send("🚀 API Autoescuela lista"));
+
+app.use("/api/users", usuarioRoutes); //ruta de usuarios
+
 
 
 const PORT = process.env.PORT || 4000;
@@ -30,3 +31,4 @@ const PORT = process.env.PORT || 4000;
     console.error("❌ Error en DB:", err);
   }
 })();
+
