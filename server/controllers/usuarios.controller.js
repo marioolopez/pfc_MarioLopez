@@ -3,7 +3,7 @@ import Usuario from "../models/usuarios.js";
 //registro de usuario
 export const registrarUsuario = async (req, res) => {
   try {
-    const { nombre, email, contraseña, rol } = req.body;
+    const { nombre, email, contrasena, rol } = req.body;
 
     //comprobar si el email ya existe
     const usuarioExistente = await Usuario.findOne({ where: { email } });
@@ -15,7 +15,7 @@ export const registrarUsuario = async (req, res) => {
     const nuevoUsuario = await Usuario.create({
       nombre,
       email,
-      contraseña,
+      contrasena,
       rol
     });
 
@@ -32,7 +32,7 @@ export const registrarUsuario = async (req, res) => {
 //login usuario
 export const loginUsuario = async (req, res) => {
   try {
-    const { email, contraseña } = req.body;
+    const { email, contrasena } = req.body;
 
     //buscar por email
     const usuario = await Usuario.findOne({ where: { email } });
@@ -41,7 +41,7 @@ export const loginUsuario = async (req, res) => {
     }
 
     //comprobar contraseña
-    if (usuario.contraseña !== contraseña) {
+    if (usuario.contrasena !== contrasena) {
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }
 
@@ -98,7 +98,7 @@ export const obtenerUsuarioPorId = async (req, res) => {
 export const actualizarUsuario = async (req, res) => {
   try {
     const { id } = req.params;
-    const { nombre, email, contraseña, rol } = req.body;
+    const { nombre, email, contrasena, rol } = req.body;
 
     const usuario = await Usuario.findByPk(id);
     if (!usuario) {
@@ -107,7 +107,7 @@ export const actualizarUsuario = async (req, res) => {
 
     usuario.nombre = nombre || usuario.nombre;
     usuario.email = email || usuario.email;
-    usuario.contraseña = contraseña || usuario.contraseña;
+    usuario.contrasena = contrasena || usuario.contrasena;
     usuario.rol = rol || usuario.rol;
 
     await usuario.save();
