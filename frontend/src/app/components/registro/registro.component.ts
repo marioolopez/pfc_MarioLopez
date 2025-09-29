@@ -1,24 +1,34 @@
 import { UsuariosService } from './../../services/usuarios.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Usuarios } from '../../models/usuarios';
 @Component({
   selector: 'app-registro',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+  styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
+  public usuario: Usuarios = new Usuarios(); //nuevo usuario
 
-  public nombre: string = '';
-  public email: string = '';
-  public contrasena: string = '';
-  public rol: string = 'alumno'; //por defecto se registran alumnos
+  constructor(public usuarioService: UsuariosService){}
 
-  constructor(public UsuariosService: UsuariosService){}
+  registrar(f: NgForm){
+    if (f.invalid) {
+    alert("Faltan datos antes de iniciar!");
+    return;
+    }
 
-  registrar(){
-    alert("Se ha registrado el usuario! (prueba)");
+    this.usuario.rol = 'alumno';
+    this.usuarioService.registrarUsuario(this.usuario).subscribe((res) =>{
+      alert("Se ha registrado el usuario!");
+      f.reset();//limpio formulario
+
+    },(err) =>{
+      alert("error al registrar el usuario!");
+    });
   }
 
 }

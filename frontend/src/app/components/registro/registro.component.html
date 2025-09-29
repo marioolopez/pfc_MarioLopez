@@ -2,34 +2,30 @@
   <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
     <h3 class="text-center mb-4">Registro</h3>
 
-    <form (ngSubmit)="registrar()">
-      <!--Nombre-->
+    <form #f="ngForm" (ngSubmit)="registrar(f)">
+      <!--nombre-->
       <div class="mb-3">
         <label class="form-label">Nombre</label>
-        <input type="text" class="form-control" [(ngModel)]="nombre" name="nombre" required>
+        <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required>
       </div>
 
-      <!--Email-->
+      <!--email-->
       <div class="mb-3">
         <label class="form-label">Correo electrónico</label>
-        <input type="email" class="form-control" [(ngModel)]="email" name="email" required>
+        <input type="email" class="form-control" [(ngModel)]="usuario.email" name="email" required email>
       </div>
 
-      <!--Contraseña-->
+      <!--contraseña-->
       <div class="mb-3">
         <label class="form-label">Contraseña</label>
-        <input type="password" class="form-control" [(ngModel)]="contrasena" name="contrasena" required>
+        <input type="password" class="form-control" [(ngModel)]="usuario.contrasena" name="contrasena" required minlength="5">
       </div>
 
-      <!--Rol-->
-      <div class="mb-3">
-        <label class="form-label">Rol</label>
-        <input type="text" class="form-control" [(ngModel)]="rol" name="rol" readonly>
-        <small class="text-muted">Por defecto, solo se registran alumnos.</small>
-      </div>
-
-      <!--Botón-->
-      <button type="submit" class="btn btn-success w-100">Registrarse</button>
+      <!--botón-->
+      <button type="submit" class="btn btn-success w-100" [disabled]="f.invalid">
+        Registrarse
+      </button>
     </form>
+
   </div>
 </div>

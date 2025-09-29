@@ -8,4 +8,3 @@ export const routes: Routes = [
   { path: 'register', component: RegistroComponent },
   { path: '**', redirectTo: '' } //redirige a Home si la ruta no existe
 ];
-

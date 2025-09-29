@@ -1,22 +1,29 @@
 import Usuario from "../models/usuarios.js";
 
-//registro de usuario
+//registro usuario
 export const registrarUsuario = async (req, res) => {
   try {
     const { nombre, email, contrasena, rol } = req.body;
 
-    //comprobar si el email ya existe
+    if (!nombre || !email || !contrasena) {
+      return res.status(400).json({ message: "Todos los campos son obligatorios" });
+    }
+
+    if (contrasena.length < 5) {
+      return res.status(400).json({ message: "La contraseña debe tener al menos 6 caracteres" });
+    }
+
     const usuarioExistente = await Usuario.findOne({ where: { email } });
     if (usuarioExistente) {
       return res.status(400).json({ message: "El email ya está registrado" });
     }
 
-    //crear nuevo usuario
+    //creo usu dsps de validacion
     const nuevoUsuario = await Usuario.create({
       nombre,
       email,
       contrasena,
-      rol
+      rol: "alumno"
     });
 
     res.status(201).json(nuevoUsuario);
@@ -24,6 +31,7 @@ export const registrarUsuario = async (req, res) => {
     res.status(500).json({ message: "Error al registrar usuario", error });
   }
 };
+
 
 
 
