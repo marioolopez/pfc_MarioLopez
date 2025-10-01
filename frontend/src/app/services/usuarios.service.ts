@@ -22,8 +22,8 @@ export class UsuariosService {
   }
 
   //login
-  loginUsuario(email: string, contraseña:string): Observable<any>{
-    return this.http.post(this.url+'/login', {email, contraseña});
+  loginUsuario(email: string, contrasena:string): Observable<any>{
+    return this.http.post(this.url+'/login', {email, contrasena});
   }
 
   //obtener todos los usuarios

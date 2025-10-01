@@ -1,5 +1,6 @@
 import Usuario from "../models/usuarios.js";
 
+
 //registro usuario
 export const registrarUsuario = async (req, res) => {
   try {

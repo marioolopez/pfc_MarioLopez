@@ -1,11 +1,14 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
     <div class="container">
-      <!--logo/Nombre app a la izquierda-->
-      <a class="navbar-brand fw-bold" routerLink="/">AutoescuelaMaloap</a>
+      <!-- logo + nombre app a la izquierda -->
+      <a class="navbar-brand fw-bold d-flex align-items-center" routerLink="/">
+        <img src="assets/logoOficial.png" class="me-2" style="height: 40px;">
+        AutoescuelaMaloap
+      </a>
 
-
-      <!--los links de navegación-->
+      <!-- links de navegación -->
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
@@ -14,9 +17,13 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/register">Registro</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/info">Más sobre nosotros</a>
+          </li>
         </ul>
       </div>
 
     </div>
   </nav>
+
 </header>
