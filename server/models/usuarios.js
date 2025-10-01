@@ -8,8 +8,8 @@ const Usuario = sequelize.define("Usuario", {
   contrasena: {type: DataTypes.STRING(100),allowNull: false,},
   rol: {type: DataTypes.ENUM("admin", "profesor", "alumno"),allowNull: false,}, //allow hace que la columna no este vacia
 }, {
-  tableName: "usuarios",   //nombre real de la tabla en MySQL
-  timestamps: false        //desactiva createdAt/updatedAt automáticos
+  tableName: "usuarios",  //nombre de la tabla en MySQL
+  timestamps: false    //desactiva createdAt/updatedAt automáticos
 });
 
 export default Usuario;
