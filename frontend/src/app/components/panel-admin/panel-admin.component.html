@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Panel de Administración</h2>
+
+  <!--crear usuario-->
+  <div class="card p-3 mb-4 shadow">
+    <h4>Crear nuevo usuario</h4>
+    <form (ngSubmit)="crearUsuario()">
+      <input [(ngModel)]="usuarioNuevo.nombre" name="nombre" placeholder="Nombre" class="form-control mb-2" required>
+      <input [(ngModel)]="usuarioNuevo.email" name="email" placeholder="Email" class="form-control mb-2" required>
+      <input [(ngModel)]="usuarioNuevo.contrasena" name="contrasena" placeholder="Contraseña" type="password" class="form-control mb-2" required>
+      <select [(ngModel)]="usuarioNuevo.rol" name="rol" class="form-control mb-2" required>
+        <option value="">Selecciona un rol</option>
+        <option value="admin">Administrador</option>
+        <option value="profesor">Profesor</option>
+        <option value="alumno">Alumno</option>
+      </select>
+      <button class="btn btn-success w-100" type="submit">Crear</button>
+    </form>
+  </div>
+
+  <!--tabla usuarios-->
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Rol</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let usu of usuarios">
+        <td>{{ usu.id_usuario }}</td>
+        <td>{{ usu.nombre }}</td>
+        <td>{{ usu.email }}</td>
+        <td>{{ usu.rol }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" (click)="editarUsuario(usu)">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="eliminarUsuario(usu.id_usuario)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Modal editar -->
+  <div *ngIf="editarUsu" class="card p-3 mt-4 shadow">
+    <h4>Editar usuario</h4>
+    <form (ngSubmit)="guardarCambios()">
+      <input [(ngModel)]="editarUsu.nombre" name="nombre" class="form-control mb-2" required>
+      <input [(ngModel)]="editarUsu.email" name="email" class="form-control mb-2" required>
+      <select [(ngModel)]="editarUsu.rol" name="rol" class="form-control mb-2" required>
+        <option value="admin">Administrador</option>
+        <option value="profesor">Profesor</option>
+        <option value="alumno">Alumno</option>
+      </select>
+      <button class="btn btn-primary w-100" type="submit">Guardar cambios</button>
+    </form>
+  </div>
+</div>
