@@ -1,21 +1,20 @@
 import Usuario from "../models/usuarios.js";
 
-
 //registro usuario
 export const registrarUsuario = async (req, res) => {
   try {
     const { nombre, email, contrasena, rol } = req.body;
 
-    if (!nombre || !email || !contrasena) {
+    if(!nombre || !email || !contrasena){
       return res.status(400).json({ message: "Todos los campos son obligatorios" });
     }
 
-    if (contrasena.length < 5) {
+    if(contrasena.length < 5){
       return res.status(400).json({ message: "La contraseña debe tener al menos 6 caracteres" });
     }
 
     const usuarioExistente = await Usuario.findOne({ where: { email } });
-    if (usuarioExistente) {
+    if(usuarioExistente){
       return res.status(400).json({ message: "El email ya está registrado" });
     }
 
@@ -24,7 +23,7 @@ export const registrarUsuario = async (req, res) => {
       nombre,
       email,
       contrasena,
-      rol: "alumno"
+      rol: rol || "alumno"
     });
 
     res.status(201).json(nuevoUsuario);
@@ -40,22 +39,22 @@ export const registrarUsuario = async (req, res) => {
 
 //login usuario
 export const loginUsuario = async (req, res) => {
-  try {
+  try{
     const { email, contrasena } = req.body;
 
     //buscar por email
-    const usuario = await Usuario.findOne({ where: { email } });
-    if (!usuario) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
+    const usuario = await Usuario.findOne({where: {email}});
+    if(!usuario){
+      return res.status(404).json({message:"Usuario no encontrado"});
     }
 
     //comprobar contraseña
-    if (usuario.contrasena !== contrasena) {
-      return res.status(401).json({ message: "Contraseña incorrecta" });
+    if(usuario.contrasena !== contrasena){
+      return res.status(401).json({message:"Contraseña incorrecta"});
     }
 
     res.json({
-      message: "Login exitoso",
+      message: "login exitoso",
       usuario: {
         id: usuario.id_usuario,
         nombre: usuario.nombre,
@@ -85,7 +84,7 @@ export const obtenerUsuarios = async (req, res) => {
 
 
 
-//obtener usuario por ID
+//obtener usuario por id
 export const obtenerUsuarioPorId = async (req, res) => {
   try {
     const { id } = req.params;

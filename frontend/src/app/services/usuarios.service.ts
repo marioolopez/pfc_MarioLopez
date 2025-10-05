@@ -9,6 +9,8 @@ export class UsuariosService {
   Usu: Usuarios;
   Usuarios: Array<Usuarios> = [];
   emailUsuarioLogeado: string;
+  usuarioActual: Usuarios | null = null; //(manejar el cerrado de sesion)
+
   readonly url = "http://localhost:4000/api/users";
   constructor(private http: HttpClient){
     this.Usu = new Usuarios();
@@ -44,6 +46,12 @@ export class UsuariosService {
   //eliminar un usuario
   eliminarUsuario(id: number){
     return this.http.delete(this.url+'/'+id);
+  }
+
+  //cerrarSesion
+  logout() {
+    this.usuarioActual = null;
+    this.emailUsuarioLogeado = "";
   }
 
 }

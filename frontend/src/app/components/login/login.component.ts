@@ -19,6 +19,7 @@ export class LoginComponent {
   iniciarSesion(){
     this.usuarioService.loginUsuario(this.email, this.contrasena).subscribe((res) =>{
       const usuario = res.usuario;
+      this.usuarioService.usuarioActual = usuario; //guardo el usu
       alert("Te has logado correctamente! Bienvenido "+res.usuario.email);
 
       if (usuario.rol === 'admin') {
