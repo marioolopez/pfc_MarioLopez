@@ -19,11 +19,19 @@
               <a class="nav-link" routerLink="/info">Más sobre nosotros</a>
             </li>
 
+            <!--mostrar el nombre del usuario con el que te logueas-->
+            <strong style="color: white;">
+              {{usuarioService.usuarioActual?.nombre }} <br>
+              {{usuarioService.usuarioActual?.rol}}
+            </strong>
+            <!------------------------------------------------------->
             <li class="nav-item" *ngIf="usuarioService.usuarioActual">
               <button class="btn btn-outline-light ms-3" (click)="cerrarSesion()">Cerrar Sesión</button>
             </li>
+
           </ul>
         </div>
+          <br><br><br>
       </div>
     </nav>
 </header>

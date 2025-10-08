@@ -22,11 +22,11 @@ export class LoginComponent {
       this.usuarioService.usuarioActual = usuario; //guardo el usu
       alert("Te has logado correctamente! Bienvenido "+res.usuario.email);
 
-      if (usuario.rol === 'admin') {
+      if(usuario.rol === 'admin') {
         this.router.navigate(['/panelAdmin']); //para el panelAdmin
-      } else if (usuario.rol === 'profesor') {
+      }else if (usuario.rol === 'profesor') {
         this.router.navigate(['/']); //para el profesor
-      } else if(usuario.rol === 'alumno'){
+      }else if(usuario.rol === 'alumno'){
         this.router.navigate(['/']); //para el alumno
       }
 
