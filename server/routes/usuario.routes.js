@@ -3,7 +3,7 @@ import { registrarUsuario, loginUsuario, obtenerUsuarios, obtenerUsuarioPorId, a
 const router = Router();
 
 //rutas
-router.post("/register", registrarUsuario);
+router.post("/registro", registrarUsuario);
 router.post("/login", loginUsuario);
 
 //para el crud de panelAdmin

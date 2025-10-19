@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-dotenv.config();//primero, antes de importar nada más
+dotenv.config(); //primero, antes de importar nada más, para enviar los datos de la conexion y realizar la configuracion para conectarte
 import express from "express";
 import cors from "cors";
 import sequelize from "./database.js";
@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 //defino rutas antes de usar
-app.use("/api/users", usuarioRoutes); //ruta de usuarios
+app.use("/api/usu", usuarioRoutes); //ruta de usuarios
 
 //conexion
 const PORT = process.env.PORT || 4000;

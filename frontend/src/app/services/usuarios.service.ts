@@ -11,7 +11,7 @@ export class UsuariosService {
   emailUsuarioLogeado: string;
   usuarioActual: Usuarios | null = null; //(manejar el cerrado de sesion)
 
-  readonly url = "http://localhost:4000/api/users";
+  readonly url = "http://localhost:4000/api/usu";
   constructor(private http: HttpClient){
     this.Usu = new Usuarios();
     this.Usuarios = [];
@@ -20,7 +20,7 @@ export class UsuariosService {
 
   //registro
   registrarUsuario(usuario: Usuarios): Observable<any>{
-    return this.http.post(this.url+'/register', usuario);
+    return this.http.post(this.url+'/registro', usuario);
   }
 
   //login
