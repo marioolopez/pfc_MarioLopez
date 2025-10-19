@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <div class="card shadow p-4">
+    <h3 class="text-center mb-4">Agregar nuevo usuario</h3>
+    <form (ngSubmit)="crearUsuario()">
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="usuarioNuevo.nombre" name="nombre" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Correo electrónico</label>
+        <input type="email" class="form-control" [(ngModel)]="usuarioNuevo.email" name="email" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="usuarioNuevo.contrasena" name="contrasena" required minlength="5">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Rol</label>
+        <select class="form-select" [(ngModel)]="usuarioNuevo.rol" name="rol" required>
+          <option value="">Selecciona un rol</option>
+          <option value="admin">Administrador</option>
+          <option value="profesor">Profesor</option>
+          <option value="alumno">Alumno</option>
+        </select>
+      </div>
+
+      <div class="d-flex justify-content-between mt-4">
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn btn-success">Crear usuario</button>
+      </div>
+    </form>
+  </div>
+</div>

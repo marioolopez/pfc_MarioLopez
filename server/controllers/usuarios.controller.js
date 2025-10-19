@@ -6,16 +6,16 @@ export const registrarUsuario = async (req, res) => {
     const { nombre, email, contrasena, rol } = req.body;
 
     if(!nombre || !email || !contrasena){
-      return res.status(400).json({ message: "Todos los campos son obligatorios" });
+      return res.status(400).json({ message: "todos los campos son obligatorios" });
     }
 
     if(contrasena.length < 5){
-      return res.status(400).json({ message: "La contraseña debe tener al menos 6 caracteres" });
+      return res.status(400).json({ message: "la contraseña debe tener al menos 6 caracteres" });
     }
 
     const usuarioExistente = await Usuario.findOne({ where: { email } });
     if(usuarioExistente){
-      return res.status(400).json({ message: "El email ya está registrado" });
+      return res.status(400).json({ message: "el email ya está registrado" });
     }
 
     //creo usu dsps de validacion
@@ -28,7 +28,7 @@ export const registrarUsuario = async (req, res) => {
 
     res.status(201).json(nuevoUsuario);
   } catch (error) {
-    res.status(500).json({ message: "Error al registrar usuario", error });
+    res.status(500).json({ message: "error al tegistrar", error });
   }
 };
 
@@ -45,12 +45,12 @@ export const loginUsuario = async (req, res) => {
     //buscar por email
     const usuario = await Usuario.findOne({where: {email}});
     if(!usuario){
-      return res.status(404).json({message:"Usuario no encontrado"});
+      return res.status(404).json({message:"usuario no encontrado"});
     }
 
     //comprobar contraseña
     if(usuario.contrasena !== contrasena){
-      return res.status(401).json({message:"Contraseña incorrecta"});
+      return res.status(401).json({message:"contraseña incorrecta"});
     }
 
     res.json({
@@ -63,7 +63,7 @@ export const loginUsuario = async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(500).json({ message: "Error en login", error });
+    res.status(500).json({ message: "error dde login", error });
   }
 };
 
@@ -76,7 +76,7 @@ export const obtenerUsuarios = async (req, res) => {
     const usuarios = await Usuario.findAll();
     res.json(usuarios);
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener usuarios", error });
+    res.status(500).json({ message: "error", error });
   }
 };
 
@@ -90,11 +90,11 @@ export const obtenerUsuarioPorId = async (req, res) => {
     const { id } = req.params;
     const usuario = await Usuario.findByPk(id);
     if (!usuario) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
+      return res.status(404).json({ message: "usuario no encontrado" });
     }
     res.json(usuario);
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener usuario", error });
+    res.status(500).json({ message: "erorr", error });
   }
 };
 
@@ -110,7 +110,7 @@ export const actualizarUsuario = async (req, res) => {
 
     const usuario = await Usuario.findByPk(id);
     if (!usuario) {
-      return res.status(404).json({ message: "Usuario no encontrado" });
+      return res.status(404).json({ message: "usuario no encontrado" });
     }
 
     usuario.nombre = nombre || usuario.nombre;
@@ -119,9 +119,9 @@ export const actualizarUsuario = async (req, res) => {
     usuario.rol = rol || usuario.rol;
 
     await usuario.save();
-    res.json({ message: "Usuario actualizado correctamente", usuario });
+    res.json({ message: "el usu se actualizó", usuario });
   } catch (error) {
-    res.status(500).json({ message: "Error al actualizar usuario", error });
+    res.status(500).json({ message: "eerror", error });
   }
 };
 

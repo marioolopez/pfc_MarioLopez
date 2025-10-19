@@ -29,17 +29,17 @@ export class UsuariosService {
   }
 
   //obtener todos los usuarios
-  obtenerUsuarios(): Observable<Usuarios[]>{
+  obtenerUsuarios():Observable<Usuarios[]>{
     return this.http.get<Usuarios[]>(this.url);
   }
 
   //obtener un usuario
-  obtenerUsuario(id: number): Observable<Usuarios>{
+  obtenerUsuario(id: number):Observable<Usuarios>{
     return this.http.get<Usuarios>(this.url+'/'+id);
   }
 
   //actualizar un usuario
-  actualizarUsuario(id: number, usuarios: Usuarios): Observable<any>{
+  actualizarUsuario(id: number, usuarios: Usuarios):Observable<any>{
     return this.http.put(this.url+'/'+id, usuarios);
   }
 

@@ -3,6 +3,7 @@ import { Usuarios } from '../../models/usuarios';
 import { UsuariosService } from '../../services/usuarios.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-panel-admin',
   standalone: true,
@@ -15,7 +16,7 @@ export class PanelAdminComponent implements OnInit{
   public usuarioNuevo: Usuarios = new Usuarios();
   public editarUsu: Usuarios|null = null; //para editar
 
-  constructor(public usuarioService:UsuariosService){}
+  constructor(public usuarioService:UsuariosService, public rutaproducto: Router){}
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -64,6 +65,10 @@ export class PanelAdminComponent implements OnInit{
         this.cargarUsuarios();
       });
     }
+  }
+
+  irACrearUsuario() {
+    this.rutaproducto.navigate(['/crear']);
   }
 
 }
