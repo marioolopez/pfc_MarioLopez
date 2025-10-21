@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">Panel del Profesor</h2>
+
+  <!-- Crear Examen -->
+  <div class="card p-3 mb-4 shadow">
+    <h4>Crear Examen</h4>
+    <form (ngSubmit)="crearExamen()">
+      <input [(ngModel)]="nuevoExamen.titulo" name="titulo" placeholder="Título del examen" class="form-control mb-2" required>
+      <button class="btn btn-success w-100" type="submit">Crear Examen</button>
+    </form>
+  </div>
+
+  <!-- Listar Examenes -->
+  <div class="card p-3 mb-4 shadow">
+    <h4>Exámenes existentes</h4>
+    <ul>
+      <li *ngFor="let ex of examenes">{{ ex.titulo }} - {{ ex.fechaCreacion | date }}</li>
+    </ul>
+  </div>
+
+  <!-- Crear Pregunta -->
+  <div class="card p-3 mb-4 shadow">
+    <h4>Crear Pregunta</h4>
+    <form (ngSubmit)="crearPregunta()">
+      <input [(ngModel)]="nuevaPregunta.enunciado" name="enunciado" placeholder="Enunciado" class="form-control mb-2" required>
+      <input [(ngModel)]="nuevaPregunta.opcionA" name="opcionA" placeholder="Opción A" class="form-control mb-2" required>
+      <input [(ngModel)]="nuevaPregunta.opcionB" name="opcionB" placeholder="Opción B" class="form-control mb-2" required>
+      <input [(ngModel)]="nuevaPregunta.opcionC" name="opcionC" placeholder="Opción C" class="form-control mb-2" required>
+      <input [(ngModel)]="nuevaPregunta.opcionD" name="opcionD" placeholder="Opción D" class="form-control mb-2" required>
+      <input [(ngModel)]="nuevaPregunta.respuesta_correcta" name="respuesta_correcta" placeholder="Respuesta Correcta (A, B, C, D)" class="form-control mb-2" required>
+      <button class="btn btn-primary w-100" type="submit">Crear Pregunta</button>
+    </form>
+  </div>
+
+  <!-- Listar Preguntas -->
+  <div class="card p-3 shadow">
+    <h4>Preguntas Creadas</h4>
+    <ul>
+      <li *ngFor="let p of preguntas">{{ p.enunciado }} (Correcta: {{ p.respuesta_correcta }})</li>
+    </ul>
+  </div>
+</div>

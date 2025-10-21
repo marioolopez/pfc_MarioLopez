@@ -3,7 +3,11 @@ dotenv.config(); //primero, antes de importar nada más, para enviar los datos d
 import express from "express";
 import cors from "cors";
 import sequelize from "./database.js";
+
+//rutas para poder utilizar
 import usuarioRoutes from "./routes/usuario.routes.js";
+import examenRoutes from "./routes/examen.routes.js";
+import preguntaRoutes from "./routes/pregunta.routes.js";
 
 //inicializo dependecias
 const app = express();
@@ -12,6 +16,8 @@ app.use(express.json());
 
 //defino rutas antes de usar
 app.use("/api/usu", usuarioRoutes); //ruta de usuarios
+app.use("/api/examenes", examenRoutes); //ruta de examenes
+app.use("/api/preguntas", preguntaRoutes); //ruta de preguntas
 
 //conexion
 const PORT = process.env.PORT || 4000;

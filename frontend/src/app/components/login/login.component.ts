@@ -25,7 +25,7 @@ export class LoginComponent {
       if(usuario.rol === 'admin') {
         this.router.navigate(['/panelAdmin']); //para el panelAdmin
       }else if (usuario.rol === 'profesor') {
-        this.router.navigate(['/']); //para el profesor
+        this.router.navigate(['/panelProfesor']); //para el profesor
       }else if(usuario.rol === 'alumno'){
         this.router.navigate(['/']); //para el alumno
       }
