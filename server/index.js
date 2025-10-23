@@ -8,6 +8,7 @@ import sequelize from "./database.js";
 import usuarioRoutes from "./routes/usuario.routes.js";
 import examenRoutes from "./routes/examen.routes.js";
 import preguntaRoutes from "./routes/pregunta.routes.js";
+import asignaturaRoutes from "./routes/asignatura.routes.js";
 
 //inicializo dependecias
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/api/usu", usuarioRoutes); //ruta de usuarios
 app.use("/api/examenes", examenRoutes); //ruta de examenes
 app.use("/api/preguntas", preguntaRoutes); //ruta de preguntas
+app.use("/api/asignaturas", asignaturaRoutes); //ruta de asignaturas
 
 //conexion
 const PORT = process.env.PORT || 4000;

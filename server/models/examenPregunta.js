@@ -4,17 +4,13 @@ import Examen from "./examen.js";
 import Pregunta from "./pregunta.js";
 
 const ExamenPregunta = sequelize.define("ExamenPregunta", {
-  id_examen: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    references: { model: Examen, key: "id_examen" }
+  id_examen: {type: DataTypes.INTEGER, primaryKey: true,
+    references:{model: Examen, key:"id_examen"}
   },
-  id_pregunta: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    references: { model: Pregunta, key: "id_pregunta" }
+  id_pregunta: {type: DataTypes.INTEGER,primaryKey: true,
+    references: {model: Pregunta, key:"id_pregunta"}
   }
-}, {
+},{
   tableName: "examenes_preguntas",
   timestamps: false
 });

@@ -1,3 +1,4 @@
+import { AsignaturasService } from './../../services/asignaturas.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -5,9 +6,11 @@ import { Examen } from '../../models/examen';
 import { Pregunta } from '../../models/pregunta';
 import { ExamenesService } from '../../services/examenes.service';
 import { PreguntasService } from '../../services/preguntas.service';
-
+import { Asignatura } from '../../models/asignatura';
+import { UsuariosService } from '../../services/usuarios.service';
 @Component({
   selector: 'app-panel-profesor',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './panel-profesor.component.html',
   styleUrl: './panel-profesor.component.css'
@@ -15,55 +18,68 @@ import { PreguntasService } from '../../services/preguntas.service';
 export class PanelProfesorComponent implements OnInit{
   public examenes: Examen[] = [];
   public preguntas: Pregunta[] = [];
+  public asignaturas: Asignatura[] = [];
 
   public nuevoExamen: Examen = new Examen();
   public nuevaPregunta: Pregunta = new Pregunta();
+  public nuevaAsignatura: Asignatura = new Asignatura();
 
-  constructor(public examenesService: ExamenesService, public preguntasService: PreguntasService){}
+  public editarAsig: Asignatura | null = null;
 
-  ngOnInit(): void {
+  constructor(public usuarioService: UsuariosService, public examenesService: ExamenesService, public preguntasService: PreguntasService, public asignaturasService: AsignaturasService){}
 
+  ngOnInit():void {
+    this.cargarAsignaturas();
   }
 
-  cargarExamenes() {
-    this.examenesService.obtenerExamenes().subscribe({
-      next: (data) => this.examenes = data,
-      error: (err) => console.error('Error cargando examenes:', err)
+  //listar todas
+  cargarAsignaturas() {
+    this.asignaturasService.obtenerAsignaturas().subscribe((data) => {
+      this.asignaturas = data;
     });
   }
 
-  cargarPreguntas() {
-    this.preguntasService.obtenerPreguntas().subscribe({
-      next: (data) => this.preguntas = data,
-      error: (err) => console.error('Error cargando preguntas:', err)
+  //crear asignatura con el id del profesor logueado
+  crearAsignatura() {
+    const usuario = this.usuarioService.usuarioActual;
+    if (!usuario) {
+      alert('Error: no hay usuario logueado.');
+      return;
+    }
+
+    this.nuevaAsignatura.id_usuario = usuario.id_usuario; //id del profesor
+
+    this.asignaturasService.crearAsignatura(this.nuevaAsignatura).subscribe(() => {
+      alert('asignatura creada correctamente');
+      this.nuevaAsignatura = new Asignatura();
+      this.cargarAsignaturas();
     });
   }
 
-  crearExamen() {
-    this.nuevoExamen.id_asignatura = 1; // por ahora una asignatura fija
-    this.nuevoExamen.id_usuario = 2; // profesor de prueba
-
-    this.examenesService.crearExamen(this.nuevoExamen).subscribe({
-      next: () => {
-        alert('Examen creado correctamente');
-        this.nuevoExamen = new Examen();
-        this.cargarExamenes();
-      },
-      error: (err) => console.error('Error al crear examen:', err)
-    });
+  //editar(mostrar el formulario de edición)
+  editarAsignatura(asig: Asignatura) {
+    this.editarAsig = { ...asig };
   }
 
-  crearPregunta() {
-    this.nuevaPregunta.id_asignatura = 1;
+  //guardar cambios
+  guardarCambios() {
+    if (this.editarAsig) {
+      this.asignaturasService.actualizarAsignatura(this.editarAsig.id_asignatura, this.editarAsig).subscribe(() => {
+        alert('Asignatura actualizada correctamente');
+        this.editarAsig = null;
+        this.cargarAsignaturas();
+      });
+    }
+  }
 
-    this.preguntasService.crearPregunta(this.nuevaPregunta).subscribe({
-      next: () => {
-        alert('Pregunta creada correctamente');
-        this.nuevaPregunta = new Pregunta();
-        this.cargarPreguntas();
-      },
-      error: (err) => console.error('Error al crear pregunta:', err)
-    });
+  //eliminar
+  eliminarAsignatura(id: number) {
+    if (confirm('¿Deseas eliminar esta asignatura?')) {
+      this.asignaturasService.eliminarAsignatura(id).subscribe(() => {
+        alert('Asignatura eliminada correctamente');
+        this.cargarAsignaturas();
+      });
+    }
   }
 
 }
