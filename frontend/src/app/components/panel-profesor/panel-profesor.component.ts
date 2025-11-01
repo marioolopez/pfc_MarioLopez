@@ -46,9 +46,7 @@ export class PanelProfesorComponent implements OnInit{
       alert('Error: no hay usuario logueado.');
       return;
     }
-
     this.nuevaAsignatura.id_usuario = usuario.id_usuario; //id del profesor
-
     this.asignaturasService.crearAsignatura(this.nuevaAsignatura).subscribe(() => {
       alert('asignatura creada correctamente');
       this.nuevaAsignatura = new Asignatura();
@@ -81,5 +79,13 @@ export class PanelProfesorComponent implements OnInit{
       });
     }
   }
+
+
+
+
+  //-------------- PARTE EXAMEN ---------------
+
+
+
 
 }
