@@ -9,6 +9,7 @@ export class AsignaturasService {
   readonly url = 'http://localhost:4000/api/asignaturas';
   Asig: Asignatura;
   Asignaturas: Array<Asignatura>;
+  asignaturaSeleccionada: Asignatura | null = null;
 
   constructor(private http: HttpClient) {
     this.Asig = new Asignatura();

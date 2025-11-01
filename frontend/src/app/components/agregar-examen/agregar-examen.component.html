@@ -1,0 +1,50 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Exámenes de la asignatura</h2>
+    <button class="btn btn-outline-secondary" (click)="volver()"> Volver</button>
+  </div>
+
+
+
+  <div class="card p-3 mb-3" *ngIf="asignaturaSeleccionada">
+    <h5 class="mb-1">{{ asignaturaSeleccionada.nombre }}</h5>
+    <p class="text-muted mb-0">{{ asignaturaSeleccionada.descripcion }}</p>
+  </div>
+
+
+
+  <div class="card p-3 mb-4 shadow">
+    <h4>Crear examen</h4>
+    <form (ngSubmit)="crearExamen()">
+      <input [(ngModel)]="nuevoExamen.titulo" name="titulo" placeholder="Título del examen" class="form-control mb-2" required>
+      <button class="btn btn-success w-100" type="submit">Crear</button>
+    </form>
+  </div>
+
+
+
+  <div class="card p-3 shadow">
+    <h4>Listado de exámenes</h4>
+
+    <table class="table table-striped table-hover mt-2" *ngIf="examenes.length; else sinExamenes">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Fecha creación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ex of examenes">
+          <td>{{ ex.id_examen }}</td>
+          <td>{{ ex.titulo }}</td>
+          <td>{{ ex.fechaCreacion | date:'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #sinExamenes>
+      <p class="text-muted mb-0">No hay exámenes todavía.</p>
+    </ng-template>
+  </div>
+</div>

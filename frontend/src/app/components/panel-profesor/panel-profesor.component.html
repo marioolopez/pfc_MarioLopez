@@ -29,13 +29,14 @@
         <td>{{ asig.descripcion }}</td>
         <td>
           <button class="btn btn-warning btn-sm me-2" (click)="editarAsignatura(asig)">Editar</button>
-          <button class="btn btn-danger btn-sm" (click)="eliminarAsignatura(asig.id_asignatura)">Eliminar</button>
+          <button class="btn btn-danger btn-sm me-2" (click)="eliminarAsignatura(asig.id_asignatura)">Eliminar</button>
+          <button class="btn btn-primary btn-sm" (click)="abrirExamenes(asig)">Examenes</button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <!-- MODAL / SECCIÓN EDITAR -->
+  <!--editar la asignatura-->
   <div *ngIf="editarAsig" class="card p-3 mt-4 shadow">
     <h4>Editar asignatura</h4>
     <form (ngSubmit)="guardarCambios()">
@@ -44,5 +45,5 @@
       <button class="btn btn-primary w-100" type="submit">Guardar cambios</button>
     </form>
   </div>
-
 </div>
+

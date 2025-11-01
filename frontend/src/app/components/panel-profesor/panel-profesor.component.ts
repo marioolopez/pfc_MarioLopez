@@ -3,51 +3,50 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Examen } from '../../models/examen';
-import { Pregunta } from '../../models/pregunta';
 import { ExamenesService } from '../../services/examenes.service';
-import { PreguntasService } from '../../services/preguntas.service';
 import { Asignatura } from '../../models/asignatura';
 import { UsuariosService } from '../../services/usuarios.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-panel-profesor',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './panel-profesor.component.html',
-  styleUrl: './panel-profesor.component.css'
+  styleUrls:['./panel-profesor.component.css']
 })
 export class PanelProfesorComponent implements OnInit{
-  public examenes: Examen[] = [];
-  public preguntas: Pregunta[] = [];
+
   public asignaturas: Asignatura[] = [];
-
-  public nuevoExamen: Examen = new Examen();
-  public nuevaPregunta: Pregunta = new Pregunta();
   public nuevaAsignatura: Asignatura = new Asignatura();
-
   public editarAsig: Asignatura | null = null;
 
-  constructor(public usuarioService: UsuariosService, public examenesService: ExamenesService, public preguntasService: PreguntasService, public asignaturasService: AsignaturasService){}
+  public asignaturaSeleccionada: Asignatura | null = null;
 
-  ngOnInit():void {
+  public examenes: Examen[] = [];
+  public nuevoExamen: Examen = new Examen();
+
+  constructor(public usuarioService: UsuariosService, public examenesService: ExamenesService, public asignaturasService: AsignaturasService, private router: Router){}
+
+  ngOnInit():void{
     this.cargarAsignaturas();
   }
 
   //listar todas
-  cargarAsignaturas() {
-    this.asignaturasService.obtenerAsignaturas().subscribe((data) => {
+  cargarAsignaturas(){
+    this.asignaturasService.obtenerAsignaturas().subscribe((data) =>{
       this.asignaturas = data;
     });
   }
 
   //crear asignatura con el id del profesor logueado
-  crearAsignatura() {
+  crearAsignatura(){
     const usuario = this.usuarioService.usuarioActual;
-    if (!usuario) {
-      alert('Error: no hay usuario logueado.');
+    if(!usuario){
+      alert('no hay usuario logueado');
       return;
     }
     this.nuevaAsignatura.id_usuario = usuario.id_usuario; //id del profesor
-    this.asignaturasService.crearAsignatura(this.nuevaAsignatura).subscribe(() => {
+    this.asignaturasService.crearAsignatura(this.nuevaAsignatura).subscribe(() =>{
       alert('asignatura creada correctamente');
       this.nuevaAsignatura = new Asignatura();
       this.cargarAsignaturas();
@@ -55,15 +54,15 @@ export class PanelProfesorComponent implements OnInit{
   }
 
   //editar(mostrar el formulario de edición)
-  editarAsignatura(asig: Asignatura) {
-    this.editarAsig = { ...asig };
+  editarAsignatura(asig: Asignatura){
+    this.editarAsig = {...asig};
   }
 
   //guardar cambios
-  guardarCambios() {
-    if (this.editarAsig) {
-      this.asignaturasService.actualizarAsignatura(this.editarAsig.id_asignatura, this.editarAsig).subscribe(() => {
-        alert('Asignatura actualizada correctamente');
+  guardarCambios(){
+    if(this.editarAsig){
+      this.asignaturasService.actualizarAsignatura(this.editarAsig.id_asignatura, this.editarAsig).subscribe(() =>{
+        alert('asignatura actualizada correctamente');
         this.editarAsig = null;
         this.cargarAsignaturas();
       });
@@ -71,10 +70,10 @@ export class PanelProfesorComponent implements OnInit{
   }
 
   //eliminar
-  eliminarAsignatura(id: number) {
-    if (confirm('¿Deseas eliminar esta asignatura?')) {
-      this.asignaturasService.eliminarAsignatura(id).subscribe(() => {
-        alert('Asignatura eliminada correctamente');
+  eliminarAsignatura(id: number){
+    if(confirm('Deseas eliminar esta asignatura?')){
+      this.asignaturasService.eliminarAsignatura(id).subscribe(() =>{
+        alert('asignatura eliminada correctamente');
         this.cargarAsignaturas();
       });
     }
@@ -82,10 +81,62 @@ export class PanelProfesorComponent implements OnInit{
 
 
 
+  //--------------PARTE EXAMEN--------------
 
-  //-------------- PARTE EXAMEN ---------------
+  //1.Seleccionar una asignatura para trabajar sus examenes (obtener los examenes de esa asignatura)
+  seleccionarAsignatura(asig: Asignatura){
+    this.asignaturaSeleccionada = asig;
+    this.cargarExamenesDeAsignatura();
+  }
 
 
 
+  //2.Cargar examenes de la asignatura seleccionada
+  private cargarExamenesDeAsignatura(){
+    if(!this.asignaturaSeleccionada){
+      this.examenes = [];
+      return;
+    }
+
+    this.examenesService.obtenerExamenes().subscribe((todos) =>{
+      this.examenes = todos.filter(
+        (e) => e.id_asignatura === this.asignaturaSeleccionada!.id_asignatura
+      );
+    });
+  }
+
+
+
+  //3.Crear examen dentro de la asignatura seleccionada
+  crearExamen(){
+    const usuario = this.usuarioService.usuarioActual;
+    if(!usuario){
+      alert("No hay usuario logado");
+      return;
+    }
+    if(!this.asignaturaSeleccionada){
+      alert("Selecciona una asignatura");
+      return;
+    }
+    if(!this.nuevoExamen.titulo.trim()){
+      alert('Escribe un título');
+      return;
+    }
+
+    this.nuevoExamen.id_usuario = usuario.id_usuario; //profesor creador
+    this.nuevoExamen.id_asignatura = this.asignaturaSeleccionada.id_asignatura;
+
+    this.examenesService.crearExamen(this.nuevoExamen).subscribe(() =>{
+      alert("examen creado");
+      this.nuevoExamen = new Examen();
+      this.cargarExamenesDeAsignatura();
+    });
+  }
+
+
+  abrirExamenes(asig: Asignatura) {
+    this.asignaturasService.asignaturaSeleccionada = asig; //guardamos la asignatura
+    this.router.navigate(['/agregarExamen']); //navega al componente
+  }
 
 }

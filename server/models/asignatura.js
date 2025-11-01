@@ -12,9 +12,8 @@ const Asignatura = sequelize.define("Asignatura", {
 });
 
 //relación de que cada asignatura pertenece a un profesor
-Asignatura.belongsTo(Usuario, {
-  foreignKey: "id_usuario", //que esto va a ser mi profesor
-  as: "profesor"
+Asignatura.belongsTo(Usuario, { foreignKey: "id_usuario", //que esto va a ser mi profesor
+as: "profesor"
 });
 
 export default Asignatura;
