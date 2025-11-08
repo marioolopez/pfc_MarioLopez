@@ -16,9 +16,11 @@ import { UsuariosService } from '../../services/usuarios.service';
 })
 export class AgregarExamenComponent implements OnInit{
 
-  asignaturaSeleccionada: Asignatura | null = null;
-  examenes: Examen[] = [];
-  nuevoExamen: Examen = new Examen();
+  public asignaturaSeleccionada: Asignatura | null = null; //para seleccionar la asignatura
+  public examenes: Examen[] = []; //para cargar los examenes
+  public nuevoExamen: Examen = new Examen(); //para crear un nuevo examen
+
+  public examenEditar: Examen | null = null; //para editar
 
   constructor(private router: Router, public examenesService: ExamenesService, public asignaturasService: AsignaturasService, public usuarioService: UsuariosService){}
 
@@ -61,11 +63,52 @@ export class AgregarExamenComponent implements OnInit{
     });
   }
 
+  //----------------
 
-  volver() {
+
+  empezarEditar(ex: Examen){
+    this.examenEditar = {...ex}; //copia
+  }
+
+
+  guardarEdicion() {
+    if(!this.examenEditar) return;
+    if(!this.examenEditar.titulo.trim()){
+      alert('el título no puede estar vacio');
+      return;
+    }
+
+    this.examenesService.actualizarExamen(this.examenEditar.id_examen, this.examenEditar).subscribe(() => {
+      alert('examen actualizado correctamente');
+      this.examenEditar = null;
+      this.cargarExamenes();
+    });
+  }
+
+
+  cancelarEdicion(){
+    this.examenEditar = null;
+  }
+
+
+  eliminarExamen(id: number){
+    if(!confirm('¿deseas eliminar este examen?')) return;
+    this.examenesService.eliminarExamen(id).subscribe(() => {
+      alert('Examen eliminado correctamente');
+      this.cargarExamenes();
+    });
+  }
+
+
+  volver(){
     this.router.navigate(['/panelProfesor']);
   }
 
 
-}
+  abrirPreguntas(ex: Examen){
+    this.examenesService.examenSeleccionado = ex;
+    this.router.navigate(['/preguntasExamen']);
+  }
 
+
+}

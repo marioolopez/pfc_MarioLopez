@@ -8,15 +8,34 @@ import { Pregunta } from '../models/pregunta';
 })
 export class PreguntasService {
 
-  private apiUrl = 'http://localhost:4000/api/preguntas';
-  constructor(private http: HttpClient) { }
+  private url = 'http://localhost:4000/api/preguntas';
+  constructor(private http: HttpClient){}
 
   obtenerPreguntas(): Observable<Pregunta[]> {
-    return this.http.get<Pregunta[]>(this.apiUrl);
+    return this.http.get<Pregunta[]>(this.url);
   }
 
-  crearPregunta(pregunta: Pregunta): Observable<Pregunta> {
-    return this.http.post<Pregunta>(this.apiUrl, pregunta);
+  //preguntas de un examen
+  obtenerPreguntasDeExamen(idExamen: number): Observable<Pregunta[]>{
+    return this.http.get<Pregunta[]>(this.url+'/examen/'+idExamen);
+  }
+
+  //crear pregunta para un examen concreto
+  crearPreguntaParaExamen(idExamen: number, pregunta: Pregunta): Observable<Pregunta>{
+    return this.http.post<Pregunta>(this.url+'/examen/'+idExamen, pregunta);
+  }
+
+  //si luego quieres CRUD completo
+  obtenerPregunta(id: number): Observable<Pregunta>{
+    return this.http.get<Pregunta>(this.url+'/'+id);
+  }
+
+  actualizarPregunta(id: number, pregunta: Pregunta): Observable<any>{
+    return this.http.put(this.url+'/'+id, pregunta);
+  }
+
+  eliminarPregunta(id: number): Observable<any>{
+    return this.http.delete(this.url+'/'+id);
   }
 
 }

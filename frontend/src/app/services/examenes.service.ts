@@ -8,21 +8,22 @@ import { Examen } from '../models/examen';
 })
 export class ExamenesService {
   private apiUrl = 'http://localhost:4000/api/examenes';
-  constructor(private http: HttpClient) { }
+  examenSeleccionado : Examen | null = null;
+  constructor(private http: HttpClient){}
 
-  crearExamen(examen: Examen): Observable<Examen> {
+  crearExamen(examen: Examen): Observable<Examen>{
     return this.http.post<Examen>(this.apiUrl, examen);
   }
 
-  obtenerExamenes(): Observable<Examen[]> {
+  obtenerExamenes(): Observable<Examen[]>{
     return this.http.get<Examen[]>(this.apiUrl);
   }
 
-  obtenerExamen(id: number): Observable<Examen> {
+  obtenerExamen(id: number): Observable<Examen>{
     return this.http.get<Examen>(this.apiUrl+'/'+id);
   }
 
-  actualizarExamen(id: number, examen: Examen): Observable<any> {
+  actualizarExamen(id: number, examen: Examen): Observable<any>{
     return this.http.put(this.apiUrl+'/'+id, examen);
   }
 

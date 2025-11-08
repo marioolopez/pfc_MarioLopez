@@ -1,18 +1,16 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="mb-0">Exámenes de la asignatura</h2>
-    <button class="btn btn-outline-secondary" (click)="volver()"> Volver</button>
+    <button class="btn btn-outline-secondary" (click)="volver()">Volver</button>
   </div>
 
-
-
+  <!--datos asignatura seleccionada-->
   <div class="card p-3 mb-3" *ngIf="asignaturaSeleccionada">
-    <h5 class="mb-1">{{ asignaturaSeleccionada.nombre }}</h5>
-    <p class="text-muted mb-0">{{ asignaturaSeleccionada.descripcion }}</p>
+    <h5 class="mb-1">{{asignaturaSeleccionada.nombre}}</h5>
+    <p class="text-muted mb-0">{{asignaturaSeleccionada.descripcion}}</p>
   </div>
 
-
-
+  <!--creo examen-->
   <div class="card p-3 mb-4 shadow">
     <h4>Crear examen</h4>
     <form (ngSubmit)="crearExamen()">
@@ -21,8 +19,7 @@
     </form>
   </div>
 
-
-
+  <!--listo examenes-->
   <div class="card p-3 shadow">
     <h4>Listado de exámenes</h4>
 
@@ -32,6 +29,7 @@
           <th>ID</th>
           <th>Título</th>
           <th>Fecha creación</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -39,6 +37,11 @@
           <td>{{ ex.id_examen }}</td>
           <td>{{ ex.titulo }}</td>
           <td>{{ ex.fechaCreacion | date:'short' }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-2" (click)="empezarEditar(ex)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminarExamen(ex.id_examen)">Eliminar</button>
+            <button class="btn btn-secondary btn-sm" (click)="abrirPreguntas(ex)">Preguntas</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -46,5 +49,17 @@
     <ng-template #sinExamenes>
       <p class="text-muted mb-0">No hay exámenes todavía.</p>
     </ng-template>
+  </div>
+
+  <!--edicion del examen-->
+  <div *ngIf="examenEditar" class="card p-3 mt-4 shadow">
+    <h4>Editar examen</h4>
+    <form (ngSubmit)="guardarEdicion()">
+      <input [(ngModel)]="examenEditar.titulo" name="tituloEditar" class="form-control mb-2" required>
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-secondary" type="button" (click)="cancelarEdicion()">Cancelar</button>
+        <button class="btn btn-primary" type="submit">Guardar cambios</button>
+      </div>
+    </form>
   </div>
 </div>

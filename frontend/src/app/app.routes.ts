@@ -7,6 +7,7 @@ import { PanelAdminComponent } from './components/panel-admin/panel-admin.compon
 import { AgregarUsuarioComponent } from './components/agregar-usuario/agregar-usuario.component';
 import { PanelProfesorComponent } from './components/panel-profesor/panel-profesor.component';
 import { AgregarExamenComponent } from './components/agregar-examen/agregar-examen.component';
+import { PreguntasExamenComponent } from './components/preguntas-examen/preguntas-examen.component';
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -16,5 +17,6 @@ export const routes: Routes = [
   { path: 'crear', component: AgregarUsuarioComponent},
   { path: 'panelProfesor', component: PanelProfesorComponent},
   { path: 'agregarExamen', component: AgregarExamenComponent },
+  { path: 'preguntasExamen', component:  PreguntasExamenComponent},
   { path: '**', redirectTo: '' } //redirige a Home si la ruta no existe
 ];

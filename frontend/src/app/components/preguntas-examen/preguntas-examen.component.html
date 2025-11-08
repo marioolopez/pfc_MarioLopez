@@ -1,0 +1,63 @@
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Preguntas del examen</h2>
+    <button class="btn btn-outline-secondary" (click)="volver()">Volver</button>
+  </div>
+
+  <div class="card p-3 mb-3" *ngIf="examenSeleccionado">
+    <h5 class="mb-1">Examen: {{ examenSeleccionado.titulo }}</h5>
+  </div>
+
+  <!-- Crear pregunta -->
+  <div class="card p-3 mb-4 shadow">
+    <h4>Crear nueva pregunta</h4>
+    <form (ngSubmit)="crearPregunta()">
+      <textarea [(ngModel)]="nuevaPregunta.enunciado"
+                name="enunciado"
+                placeholder="Enunciado de la pregunta"
+                class="form-control mb-2"
+                required></textarea>
+
+      <input [(ngModel)]="nuevaPregunta.opcionA" name="opcionA" class="form-control mb-2" placeholder="Opción A">
+      <input [(ngModel)]="nuevaPregunta.opcionB" name="opcionB" class="form-control mb-2" placeholder="Opción B">
+      <input [(ngModel)]="nuevaPregunta.opcionC" name="opcionC" class="form-control mb-2" placeholder="Opción C">
+      <input [(ngModel)]="nuevaPregunta.opcionD" name="opcionD" class="form-control mb-2" placeholder="Opción D">
+
+      <input [(ngModel)]="nuevaPregunta.respuesta_correcta"
+             name="respuesta_correcta"
+             class="form-control mb-2"
+             placeholder="Respuesta correcta (A, B, C o D)"
+             required>
+
+      <button class="btn btn-success w-100" type="submit">Crear pregunta</button>
+    </form>
+  </div>
+
+  <!-- Listado de preguntas -->
+  <div class="card p-3 shadow">
+    <h4>Listado de preguntas</h4>
+
+    <table class="table table-striped table-hover mt-2" *ngIf="preguntas.length; else sinPreguntas">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Enunciado</th>
+          <th>Respuesta correcta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of preguntas">
+          <td>{{ p.id_pregunta }}</td>
+          <td>{{ p.enunciado }}</td>
+          <td>{{ p.respuesta_correcta }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #sinPreguntas>
+      <p class="text-muted mb-0">No hay preguntas todavía.</p>
+    </ng-template>
+  </div>
+
+</div>
