@@ -1,11 +1,12 @@
 import Pregunta from "../models/pregunta.js";
+import Examen from "../models/examen.js";
 
 export const crearPregunta = async (req, res) => {
   try {
     const nueva = await Pregunta.create(req.body);
     res.status(201).json(nueva);
   } catch (error) {
-    res.status(500).json({ message: "Error al crear pregunta", error });
+    res.status(500).json({ message: "error al crear pregunta", error });
   }
 };
 
@@ -14,7 +15,7 @@ export const obtenerPreguntas = async (req, res) => {
     const preguntas = await Pregunta.findAll();
     res.json(preguntas);
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener preguntas", error });
+    res.status(500).json({ message: "error al obtneer pregunta", error });
   }
 };
 
@@ -28,13 +29,13 @@ export const obtenerPreguntasDeExamen = async (req, res) => {
     });
 
     if (!examen) {
-      return res.status(404).json({ message: "Examen no encontrado" });
+      return res.status(404).json({ message: "examen no ecnontrado" });
     }
 
     //las preguntas vienen en examen.preguntas gracias al belongsToMany
     res.json(examen.preguntas);
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener preguntas del examen", error });
+    res.status(500).json({ message: "error al obtener preguntas del examen", error });
   }
 };
 
@@ -47,10 +48,10 @@ export const crearPreguntaParaExamen = async (req, res) => {
 
     const examen = await Examen.findByPk(id_examen);
     if (!examen) {
-      return res.status(404).json({ message: "Examen no encontrado" });
+      return res.status(404).json({ message: "examen no encontrado" });
     }
 
-    // 1. Creamos la pregunta (asignada a una asignatura)
+    //1-Creamos la pregunta (asignada a una asignatura)
     const nuevaPregunta = await Pregunta.create({
       enunciado,
       opcionA,
@@ -61,9 +62,8 @@ export const crearPreguntaParaExamen = async (req, res) => {
       id_asignatura
     });
 
-    // 2. La asociamos al examen usando la relación Many-to-Many
-    await examen.addPregunta(nuevaPregunta); // gracias a belongsToMany
-
+    //2.La asociamos al examen usando la relación Many-to-Many
+    await examen.addPregunta(nuevaPregunta); //gracias a belongsToMany
     res.status(201).json(nuevaPregunta);
   } catch (error) {
     res.status(500).json({ message: "Error al crear pregunta para examen", error });

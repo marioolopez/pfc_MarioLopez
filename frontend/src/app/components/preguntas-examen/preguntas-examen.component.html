@@ -6,35 +6,28 @@
   </div>
 
   <div class="card p-3 mb-3" *ngIf="examenSeleccionado">
-    <h5 class="mb-1">Examen: {{ examenSeleccionado.titulo }}</h5>
+    <h5 class="mb-1">Examen: {{examenSeleccionado.titulo}}</h5>
   </div>
 
   <!-- Crear pregunta -->
   <div class="card p-3 mb-4 shadow">
     <h4>Crear nueva pregunta</h4>
     <form (ngSubmit)="crearPregunta()">
-      <textarea [(ngModel)]="nuevaPregunta.enunciado"
-                name="enunciado"
-                placeholder="Enunciado de la pregunta"
-                class="form-control mb-2"
-                required></textarea>
+      <textarea [(ngModel)]="nuevaPregunta.enunciado"name="enunciado" placeholder="Enunciado de la pregunta" class="form-control mb-2" required></textarea>
 
       <input [(ngModel)]="nuevaPregunta.opcionA" name="opcionA" class="form-control mb-2" placeholder="Opción A">
       <input [(ngModel)]="nuevaPregunta.opcionB" name="opcionB" class="form-control mb-2" placeholder="Opción B">
       <input [(ngModel)]="nuevaPregunta.opcionC" name="opcionC" class="form-control mb-2" placeholder="Opción C">
       <input [(ngModel)]="nuevaPregunta.opcionD" name="opcionD" class="form-control mb-2" placeholder="Opción D">
 
-      <input [(ngModel)]="nuevaPregunta.respuesta_correcta"
-             name="respuesta_correcta"
-             class="form-control mb-2"
-             placeholder="Respuesta correcta (A, B, C o D)"
-             required>
+      <input [(ngModel)]="nuevaPregunta.respuesta_correcta" name="respuesta_correcta" class="form-control mb-2"
+      placeholder="Respuesta correcta (A, B, C o D)" required>
 
       <button class="btn btn-success w-100" type="submit">Crear pregunta</button>
     </form>
   </div>
 
-  <!-- Listado de preguntas -->
+  <!--lsitado de preguntas-->
   <div class="card p-3 shadow">
     <h4>Listado de preguntas</h4>
 
@@ -48,9 +41,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let p of preguntas">
-          <td>{{ p.id_pregunta }}</td>
-          <td>{{ p.enunciado }}</td>
-          <td>{{ p.respuesta_correcta }}</td>
+          <td>{{p.id_pregunta}}</td>
+          <td>{{ p.enunciado}}</td>
+          <td>{{p.respuesta_correcta}}</td>
         </tr>
       </tbody>
     </table>

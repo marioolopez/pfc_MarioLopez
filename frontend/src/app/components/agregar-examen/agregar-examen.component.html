@@ -34,20 +34,20 @@
       </thead>
       <tbody>
         <tr *ngFor="let ex of examenes">
-          <td>{{ ex.id_examen }}</td>
-          <td>{{ ex.titulo }}</td>
-          <td>{{ ex.fechaCreacion | date:'short' }}</td>
+          <td>{{ex.id_examen}}</td>
+          <td>{{ex.titulo}}</td>
+          <td>{{ex.fechaCreacion | date:'short'}}</td>
           <td>
             <button class="btn btn-warning btn-sm me-2" (click)="empezarEditar(ex)">Editar</button>
-            <button class="btn btn-danger btn-sm" (click)="eliminarExamen(ex.id_examen)">Eliminar</button>
-            <button class="btn btn-secondary btn-sm" (click)="abrirPreguntas(ex)">Preguntas</button>
+            <button class="btn btn-danger btn-sm me-2" (click)="eliminarExamen(ex.id_examen)">Eliminar</button>
+            <button class="btn btn-secondary btn-sm me-2" (click)="abrirPreguntas(ex)">Preguntas</button>
           </td>
         </tr>
       </tbody>
     </table>
 
     <ng-template #sinExamenes>
-      <p class="text-muted mb-0">No hay exámenes todavía.</p>
+      <p class="text-muted mb-0">no hay exameenes todavia</p>
     </ng-template>
   </div>
 

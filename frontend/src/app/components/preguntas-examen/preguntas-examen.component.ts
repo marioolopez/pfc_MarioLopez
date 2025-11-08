@@ -21,9 +21,9 @@ export class PreguntasExamenComponent implements OnInit{
 
   constructor(private router: Router, public examenesService: ExamenesService, public preguntasService: PreguntasService){}
 
-  ngOnInit(): void {
+  ngOnInit():void{
     this.examenSeleccionado = this.examenesService.examenSeleccionado;
-    if (!this.examenSeleccionado) {
+    if(!this.examenSeleccionado){
       alert('No se ha seleccionado ningún examen.');
       this.router.navigate(['/agregarExamen']);
       return;
@@ -31,7 +31,7 @@ export class PreguntasExamenComponent implements OnInit{
     this.cargarPreguntas();
   }
 
-  cargarPreguntas() {
+  cargarPreguntas(){
     this.preguntasService
       .obtenerPreguntasDeExamen(this.examenSeleccionado!.id_examen)
       .subscribe((data) => {
@@ -41,7 +41,6 @@ export class PreguntasExamenComponent implements OnInit{
 
   crearPregunta(){
     if(!this.examenSeleccionado) return;
-
     if(!this.nuevaPregunta.enunciado.trim() || !this.nuevaPregunta.respuesta_correcta.trim()){
       alert('Rellena al menos el enunciado y la respuesta correcta');
       return;
@@ -49,7 +48,6 @@ export class PreguntasExamenComponent implements OnInit{
 
     //la pregunta necesita saber la asignatura (la del examen)
     this.nuevaPregunta.id_asignatura = this.examenSeleccionado.id_asignatura;
-
     this.preguntasService.crearPreguntaParaExamen(this.examenSeleccionado.id_examen, this.nuevaPregunta).subscribe(() => {
         alert('pregunta creada');
         this.nuevaPregunta = new Pregunta();
