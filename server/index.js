@@ -4,6 +4,9 @@ import express from "express";
 import cors from "cors";
 import sequelize from "./database.js";
 
+//activar las relaciones many to many
+import "./models/examenPregunta.js";
+
 //rutas para poder utilizar
 import usuarioRoutes from "./routes/usuario.routes.js";
 import examenRoutes from "./routes/examen.routes.js";

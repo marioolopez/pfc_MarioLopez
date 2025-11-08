@@ -11,11 +11,11 @@ const Pregunta = sequelize.define("Pregunta",{
   opcionD: DataTypes.STRING(255),
   respuesta_correcta: {type: DataTypes.STRING(1), allowNull: false
 }
-}, {
+},{
   tableName: "preguntas",
   timestamps: false
 });
 
-Pregunta.belongsTo(Asignatura, { foreignKey: "id_asignatura", as: "asignatura" });
+Pregunta.belongsTo(Asignatura, {foreignKey: "id_asignatura", as: "asignatura"});
 
 export default Pregunta;

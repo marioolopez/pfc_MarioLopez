@@ -14,7 +14,6 @@ import { PreguntasService } from '../../services/preguntas.service';
   styleUrl: './preguntas-examen.component.css'
 })
 export class PreguntasExamenComponent implements OnInit{
-
   public examenSeleccionado: Examen | null = null;
   public preguntas: Pregunta[] = [];
   public nuevaPregunta: Pregunta = new Pregunta();
@@ -24,7 +23,7 @@ export class PreguntasExamenComponent implements OnInit{
   ngOnInit():void{
     this.examenSeleccionado = this.examenesService.examenSeleccionado;
     if(!this.examenSeleccionado){
-      alert('No se ha seleccionado ningún examen.');
+      alert('No se ha seleccionado ningún examen');
       this.router.navigate(['/agregarExamen']);
       return;
     }
@@ -32,28 +31,34 @@ export class PreguntasExamenComponent implements OnInit{
   }
 
   cargarPreguntas(){
-    this.preguntasService
-      .obtenerPreguntasDeExamen(this.examenSeleccionado!.id_examen)
-      .subscribe((data) => {
+    this.preguntasService.obtenerPreguntasDeExamen(this.examenSeleccionado!.id_examen).subscribe((data) => {
         this.preguntas = data;
       });
   }
 
   crearPregunta(){
     if(!this.examenSeleccionado) return;
-    if(!this.nuevaPregunta.enunciado.trim() || !this.nuevaPregunta.respuesta_correcta.trim()){
+    if(!this.nuevaPregunta.enunciado.trim() || !this.nuevaPregunta.respuesta_correcta){
       alert('Rellena al menos el enunciado y la respuesta correcta');
       return;
     }
 
+    const resp = this.nuevaPregunta.respuesta_correcta.toUpperCase();
+    if(!['A', 'B', 'C', 'D'].includes(resp)) {
+      alert('La respuesta correcta debe ser A, B, C o D !!');
+      return;
+    }
+    this.nuevaPregunta.respuesta_correcta = resp;
+
     //la pregunta necesita saber la asignatura (la del examen)
     this.nuevaPregunta.id_asignatura = this.examenSeleccionado.id_asignatura;
     this.preguntasService.crearPreguntaParaExamen(this.examenSeleccionado.id_examen, this.nuevaPregunta).subscribe(() => {
-        alert('pregunta creada');
-        this.nuevaPregunta = new Pregunta();
-        this.cargarPreguntas();
-      });
+      alert('pregunta creada');
+      this.nuevaPregunta = new Pregunta();
+      this.cargarPreguntas();
+    });
   }
+
 
   volver(){
     this.router.navigate(['/agregarExamen']);

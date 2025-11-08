@@ -20,8 +20,13 @@
       <input [(ngModel)]="nuevaPregunta.opcionC" name="opcionC" class="form-control mb-2" placeholder="Opción C">
       <input [(ngModel)]="nuevaPregunta.opcionD" name="opcionD" class="form-control mb-2" placeholder="Opción D">
 
-      <input [(ngModel)]="nuevaPregunta.respuesta_correcta" name="respuesta_correcta" class="form-control mb-2"
-      placeholder="Respuesta correcta (A, B, C o D)" required>
+      <select [(ngModel)]="nuevaPregunta.respuesta_correcta" name="respuesta_correcta" class="form-select mb-2" required>
+        <option value="" disabled selected>Selecciona la respuesta correcta</option>
+        <option value="A">Opción A</option>
+        <option value="B">Opción B</option>
+        <option value="C">Opción C</option>
+        <option value="D">Opción D</option>
+      </select>
 
       <button class="btn btn-success w-100" type="submit">Crear pregunta</button>
     </form>
