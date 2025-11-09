@@ -9,30 +9,24 @@
     <h5 class="mb-1">Examen: {{examenSeleccionado.titulo}}</h5>
   </div>
 
-  <!-- Crear pregunta -->
+  <!--crear pregunta-->
   <div class="card p-3 mb-4 shadow">
     <h4>Crear nueva pregunta</h4>
     <form (ngSubmit)="crearPregunta()">
-      <textarea [(ngModel)]="nuevaPregunta.enunciado"name="enunciado" placeholder="Enunciado de la pregunta" class="form-control mb-2" required></textarea>
+      <textarea [(ngModel)]="nuevaPregunta.enunciado" name="enunciado" placeholder="Enunciado de la pregunta" class="form-control mb-2" required></textarea>
 
       <input [(ngModel)]="nuevaPregunta.opcionA" name="opcionA" class="form-control mb-2" placeholder="Opción A">
       <input [(ngModel)]="nuevaPregunta.opcionB" name="opcionB" class="form-control mb-2" placeholder="Opción B">
       <input [(ngModel)]="nuevaPregunta.opcionC" name="opcionC" class="form-control mb-2" placeholder="Opción C">
       <input [(ngModel)]="nuevaPregunta.opcionD" name="opcionD" class="form-control mb-2" placeholder="Opción D">
 
-      <select [(ngModel)]="nuevaPregunta.respuesta_correcta" name="respuesta_correcta" class="form-select mb-2" required>
-        <option value="" disabled selected>Selecciona la respuesta correcta</option>
-        <option value="A">Opción A</option>
-        <option value="B">Opción B</option>
-        <option value="C">Opción C</option>
-        <option value="D">Opción D</option>
-      </select>
+      <input [(ngModel)]="nuevaPregunta.respuesta_correcta" name="respuesta_correcta" class="form-control mb-2" placeholder="Respuesta correcta (A, B, C o D)" required>
 
       <button class="btn btn-success w-100" type="submit">Crear pregunta</button>
     </form>
   </div>
 
-  <!--lsitado de preguntas-->
+  <!--listado de preguntas-->
   <div class="card p-3 shadow">
     <h4>Listado de preguntas</h4>
 
@@ -42,13 +36,18 @@
           <th>ID</th>
           <th>Enunciado</th>
           <th>Respuesta correcta</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let p of preguntas">
-          <td>{{p.id_pregunta}}</td>
-          <td>{{ p.enunciado}}</td>
-          <td>{{p.respuesta_correcta}}</td>
+          <td>{{ p.id_pregunta }}</td>
+          <td>{{ p.enunciado }}</td>
+          <td>{{ p.respuesta_correcta }}</td>
+          <td>
+            <button class="btn btn-warning btn-sm me-2" (click)="empezarEditar(p)">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminarPregunta(p.id_pregunta)">Eliminar</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -56,6 +55,26 @@
     <ng-template #sinPreguntas>
       <p class="text-muted mb-0">No hay preguntas todavía.</p>
     </ng-template>
+  </div>
+
+  <!--formulario para editar-->
+  <div *ngIf="preguntaEditar" class="card p-3 mt-4 shadow">
+    <h4>Editar pregunta</h4>
+    <form (ngSubmit)="guardarEdicion()">
+      <textarea [(ngModel)]="preguntaEditar.enunciado" name="enunciadoEditar" class="form-control mb-2" required></textarea>
+
+      <input [(ngModel)]="preguntaEditar.opcionA" name="opcionAEditar" class="form-control mb-2" placeholder="Opción A">
+      <input [(ngModel)]="preguntaEditar.opcionB" name="opcionBEditar" class="form-control mb-2" placeholder="Opción B">
+      <input [(ngModel)]="preguntaEditar.opcionC" name="opcionCEditar" class="form-control mb-2" placeholder="Opción C">
+      <input [(ngModel)]="preguntaEditar.opcionD" name="opcionDEditar" class="form-control mb-2" placeholder="Opción D">
+
+      <input [(ngModel)]="preguntaEditar.respuesta_correcta" name="respuesta_correctaEditar" class="form-control mb-3" placeholder="Respuesta correcta (A, B, C o D)" required>
+
+      <div class="d-flex justify-content-between">
+        <button class="btn btn-secondary" type="button" (click)="cancelarEdicion()">Cancelar</button>
+        <button class="btn btn-primary" type="submit">Guardar cambios</button>
+      </div>
+    </form>
   </div>
 
 </div>

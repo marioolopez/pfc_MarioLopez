@@ -18,12 +18,14 @@ export class PreguntasExamenComponent implements OnInit{
   public preguntas: Pregunta[] = [];
   public nuevaPregunta: Pregunta = new Pregunta();
 
+  public preguntaEditar: Pregunta | null= null; //editar
+
   constructor(private router: Router, public examenesService: ExamenesService, public preguntasService: PreguntasService){}
 
   ngOnInit():void{
     this.examenSeleccionado = this.examenesService.examenSeleccionado;
     if(!this.examenSeleccionado){
-      alert('No se ha seleccionado ningún examen');
+      alert('No has seleccionado ningún examen');
       this.router.navigate(['/agregarExamen']);
       return;
     }
@@ -32,8 +34,8 @@ export class PreguntasExamenComponent implements OnInit{
 
   cargarPreguntas(){
     this.preguntasService.obtenerPreguntasDeExamen(this.examenSeleccionado!.id_examen).subscribe((data) => {
-        this.preguntas = data;
-      });
+      this.preguntas = data;
+    });
   }
 
   crearPregunta(){
@@ -44,8 +46,8 @@ export class PreguntasExamenComponent implements OnInit{
     }
 
     const resp = this.nuevaPregunta.respuesta_correcta.toUpperCase();
-    if(!['A', 'B', 'C', 'D'].includes(resp)) {
-      alert('La respuesta correcta debe ser A, B, C o D !!');
+    if(!['A', 'B', 'C', 'D'].includes(resp)){
+      alert('La respuesta correcta debe ser A, B, C o D!');
       return;
     }
     this.nuevaPregunta.respuesta_correcta = resp;
@@ -59,9 +61,41 @@ export class PreguntasExamenComponent implements OnInit{
     });
   }
 
-
   volver(){
     this.router.navigate(['/agregarExamen']);
+  }
+
+
+  //-------------- editar y eliminar -------------------
+
+  empezarEditar(p: Pregunta){
+    this.preguntaEditar = {...p};
+  }
+
+  guardarEdicion(){
+    if(!this.preguntaEditar) return;
+    if(!this.preguntaEditar.enunciado.trim() || !this.preguntaEditar.respuesta_correcta.trim()){
+      alert('el enunciado y la respuesta correcta es obligatorio!');
+      return;
+    }
+
+    this.preguntasService.actualizarPregunta(this.preguntaEditar.id_pregunta, this.preguntaEditar).subscribe(() => {
+      alert('pregunta actualizada');
+      this.preguntaEditar = null;
+      this.cargarPreguntas();
+    });
+  }
+
+  cancelarEdicion(){
+    this.preguntaEditar = null;
+  }
+
+  eliminarPregunta(id: number){
+    if(!confirm('Deseas eliminar esta pregunta?')) return;
+    this.preguntasService.eliminarPregunta(id).subscribe(() => {
+      alert('pregunta eliminada!');
+      this.cargarPreguntas();
+    });
   }
 
 }
