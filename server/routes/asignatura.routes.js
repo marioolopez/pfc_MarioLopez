@@ -3,10 +3,10 @@ import {crearAsignatura,obtenerAsignaturas,obtenerAsignaturaPorId,actualizarAsig
 
 const router = Router();
 
-router.post("/", crearAsignatura);  //crear
-router.get("/", obtenerAsignaturas);   //listar
+router.post("/", crearAsignatura); //crear
+router.get("/", obtenerAsignaturas); //listar
 router.get("/:id", obtenerAsignaturaPorId);//obtener por id
-router.put("/:id", actualizarAsignatura);  //actualizar
+router.put("/:id", actualizarAsignatura); //actualizar
 router.delete("/:id", eliminarAsignatura); //eliminar
 
 export default router;
