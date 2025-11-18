@@ -1,7 +1,8 @@
 import Examen from "../models/examen.js";
 import Asignatura from "../models/asignatura.js";
 import Usuario from "../models/usuarios.js";
-
+import Pregunta from "../models/pregunta.js";
+import ExamenPregunta from "../models/examenPregunta.js";
 
 //crear examen
 export const crearExamen = async (req, res) => {
@@ -31,7 +32,7 @@ export const obtenerExamenes = async (req, res) => {
 };
 
 
-// obtener un examen por id
+//obtener un examen por id
 export const obtenerExamenPorId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -56,7 +57,7 @@ export const obtenerExamenPorId = async (req, res) => {
 
 //actualizar
 export const actualizarExamen = async (req, res) => {
-  try {
+  try{
     const { id } = req.params;
     const { titulo } = req.body;
 
@@ -81,10 +82,24 @@ export const eliminarExamen = async (req, res) => {
     const { id } = req.params;
 
     const examen = await Examen.findByPk(id);
-    if(!examen) {
+    if(!examen){
       return res.status(404).json({message: "examen no encontrado"});
     }
 
+    //busca relacion en table puente
+    const relaciones = await ExamenPregunta.findAll({
+      where: {id_examen: id}
+    });
+
+    //borrar las preguntas asociadas a esas relaciones
+    for(const rel of relaciones) {
+      await Pregunta.destroy({where: {id_pregunta: rel.id_pregunta}});
+    }
+
+    //borrar las filas de la tabla puente
+    await ExamenPregunta.destroy({where: {id_examen: id}});
+
+    //borra el examen
     await examen.destroy();
     res.json({message: "examen eliminado"});
   } catch (error) {

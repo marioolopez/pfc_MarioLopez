@@ -59,7 +59,7 @@ export const crearPreguntaParaExamen = async (req, res) => {
       return res.status(404).json({message: "no encontraste el examen"});
     }
 
-    //1-Creamos la pregunta
+    //creo pregunta
     const nuevaPregunta = await Pregunta.create({
       enunciado,
       opcionA,
@@ -70,7 +70,7 @@ export const crearPreguntaParaExamen = async (req, res) => {
       id_asignatura
     });
 
-    //2-La asociamos al examen (tabla puente)
+    //la asocio al examen
     await examen.addPregunta(nuevaPregunta);
     res.status(201).json(nuevaPregunta);
   } catch (error) {
