@@ -50,7 +50,7 @@ export const obtenerExamenPorId = async (req, res) => {
 
     res.json(examen);
   } catch (error) {
-    res.status(500).json({message: "Error al obtener examen", error});
+    res.status(500).json({message: "error", error});
   }
 };
 
