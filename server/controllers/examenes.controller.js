@@ -27,7 +27,7 @@ export const obtenerExamenes = async (req, res) => {
     });
     res.json(examenes);
   } catch (error) {
-    res.status(500).json({message: "Error al obtener examenes", error});
+    res.status(500).json({message: "error al obtener examenes", error});
   }
 };
 
@@ -38,9 +38,9 @@ export const obtenerExamenPorId = async (req, res) => {
     const { id } = req.params;
 
     const examen = await Examen.findByPk(id, {
-      include: [
-        { model: Asignatura, as: "asignatura" },
-        { model: Usuario, as: "profesor" }
+      include: [ //añade automaticamente, muy útil
+        {model: Asignatura, as: "asignatura"},
+        {model: Usuario, as: "profesor"}
       ]
     });
 

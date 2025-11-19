@@ -83,7 +83,7 @@ export class PanelProfesorComponent implements OnInit{
 
   //--------------PARTE EXAMEN--------------
 
-  //1.Seleccionar una asignatura para trabajar sus examenes (obtener los examenes de esa asignatura)
+  //seleccionar una asignatura para trabajar sus examenes(obtener los examenes de esa asignatura)
   seleccionarAsignatura(asig: Asignatura){
     this.asignaturaSeleccionada = asig;
     this.cargarExamenesDeAsignatura();
@@ -91,7 +91,7 @@ export class PanelProfesorComponent implements OnInit{
 
 
 
-  //2.Cargar examenes de la asignatura seleccionada
+  //carga examen de asignatura seleccionada
   private cargarExamenesDeAsignatura(){
     if(!this.asignaturaSeleccionada){
       this.examenes = [];
@@ -107,7 +107,7 @@ export class PanelProfesorComponent implements OnInit{
 
 
 
-  //3.Crear examen dentro de la asignatura seleccionada
+  //crea examen dentro de la asig seleccionada
   crearExamen(){
     const usuario = this.usuarioService.usuarioActual;
     if(!usuario){

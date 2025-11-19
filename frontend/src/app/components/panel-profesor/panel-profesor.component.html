@@ -24,9 +24,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let asig of asignaturas">
-        <td>{{ asig.id_asignatura }}</td>
-        <td>{{ asig.nombre }}</td>
-        <td>{{ asig.descripcion }}</td>
+        <td>{{asig.id_asignatura}}</td>
+        <td>{{asig.nombre}}</td>
+        <td>{{asig.descripcion}}</td>
         <td>
           <button class="btn btn-warning btn-sm me-2" (click)="editarAsignatura(asig)">Editar</button>
           <button class="btn btn-danger btn-sm me-2" (click)="eliminarAsignatura(asig.id_asignatura)">Eliminar</button>

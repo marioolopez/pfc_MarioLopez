@@ -15,7 +15,7 @@ const ExamenPregunta = sequelize.define("ExamenPregunta", {
   timestamps: false
 });
 
-Examen.belongsToMany(Pregunta, { through: ExamenPregunta, foreignKey: "id_examen", otherKey: "id_pregunta", as: "preguntas"});
-Pregunta.belongsToMany(Examen, { through: ExamenPregunta, foreignKey: "id_pregunta", otherKey: "id_examen", as: "examenes"});
+Examen.belongsToMany(Pregunta, {through: ExamenPregunta, foreignKey: "id_examen", otherKey: "id_pregunta", as: "preguntas"});
+Pregunta.belongsToMany(Examen, {through: ExamenPregunta, foreignKey: "id_pregunta", otherKey: "id_examen", as: "examenes"});
 
 export default ExamenPregunta;

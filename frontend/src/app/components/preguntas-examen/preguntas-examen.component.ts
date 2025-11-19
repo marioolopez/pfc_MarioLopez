@@ -47,7 +47,7 @@ export class PreguntasExamenComponent implements OnInit{
 
     const resp = this.nuevaPregunta.respuesta_correcta.toUpperCase();
     if(!['A', 'B', 'C', 'D'].includes(resp)){
-      alert('La respuesta correcta debe ser A, B, C o D!');
+      alert('La respuesta correcta debe ser A, B, C o D majo!');
       return;
     }
     this.nuevaPregunta.respuesta_correcta = resp;

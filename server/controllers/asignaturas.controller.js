@@ -6,42 +6,42 @@ import ExamenPregunta from "../models/examenPregunta.js";
 
 //crear asignatura
 export const crearAsignatura = async (req, res) => {
-  try {
+  try{
     const { nombre, descripcion, id_usuario } = req.body;
 
-    if(!nombre || !id_usuario) {
+    if(!nombre || !id_usuario){
       return res.status(400).json({message: "faltan datos obligatorios"});
     }
 
     const nueva = await Asignatura.create({ nombre, descripcion, id_usuario });
     res.status(201).json(nueva);
-  } catch (error) {
-    res.status(500).json({ message: "error", error });
+  }catch (error){
+    res.status(500).json({message: "error", error});
   }
 };
 
 //obtener todas las asignaturas
 export const obtenerAsignaturas = async (req, res) => {
-  try {
+  try{
     const asignaturas = await Asignatura.findAll({
-      include: [{ model: Usuario, as: "profesor" }]
+      include: [{model: Usuario, as: "profesor" }]
     });
     res.json(asignaturas);
-  } catch (error) {
+  }catch (error){
     res.status(500).json({ message: "error", error });
   }
 };
 
 //obtener una asignatura por ID
 export const obtenerAsignaturaPorId = async (req, res) => {
-  try {
+  try{
     const { id } = req.params;
     const asignatura = await Asignatura.findByPk(id, {
-      include: [{ model: Usuario, as: "profesor" }]
+      include: [{model: Usuario, as: "profesor"}]
     });
 
-    if (!asignatura) {
-      return res.status(404).json({ message: "Asignatura no encontrada" });
+    if(!asignatura){
+      return res.status(404).json({message: "asig no encontrada"});
     }
 
     res.json(asignatura);
@@ -53,13 +53,13 @@ export const obtenerAsignaturaPorId = async (req, res) => {
 
 //actualizar asignatura
 export const actualizarAsignatura = async (req, res) => {
-  try {
+  try{
     const { id } = req.params;
     const { nombre, descripcion } = req.body;
 
     const asignatura = await Asignatura.findByPk(id);
     if(!asignatura){
-      return res.status(404).json({message: "no se encontro la asig" });
+      return res.status(404).json({message: "no se encontro la asig"});
     }
 
     asignatura.nombre = nombre || asignatura.nombre;
@@ -67,7 +67,7 @@ export const actualizarAsignatura = async (req, res) => {
 
     await asignatura.save();
     res.json({message: "asignatura actualizada", asignatura});
-  } catch (error) {
+  }catch (error){
     res.status(500).json({message: "error", error});
   }
 };
@@ -84,14 +84,14 @@ export const eliminarAsignatura = async (req, res) => {
 
     //buscar los examenes de esa asignatura
     const examenes = await Examen.findAll({
-      where: {id_asignatura: id}
+      where:{id_asignatura: id}
     });
 
 
     //para cada examen borrar sus preguntas y relaciones
     for(const examen of examenes){
       const relaciones = await ExamenPregunta.findAll({
-        where: { id_examen: examen.id_examen }
+        where: {id_examen: examen.id_examen}
       });
 
       for(const rel of relaciones){
@@ -99,7 +99,6 @@ export const eliminarAsignatura = async (req, res) => {
       }
 
       await ExamenPregunta.destroy({where: {id_examen: examen.id_examen}});
-
       await examen.destroy();
     }
     

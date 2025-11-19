@@ -36,13 +36,13 @@ export const obtenerPreguntasDeExamen = async (req, res) => {
     });
 
     if(!examen){
-      return res.status(404).json({message: "examen no encontrado"});
+      return res.status(404).json({message: "exa no encontrado"});
     }
 
     res.json(examen.preguntas);
   }catch(error){
     console.error("error al obtener preguntas del examen", error);
-    res.status(500).json({message:"error al obtener preguntas del examen", error});
+    res.status(500).json({message:"error", error});
   }
 };
 
