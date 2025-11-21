@@ -66,7 +66,7 @@ export class PreguntasExamenComponent implements OnInit{
   }
 
 
-  //-------------- editar y eliminar -------------------
+  //--------------editar y eliminar-------------------
 
   empezarEditar(p: Pregunta){
     this.preguntaEditar = {...p};

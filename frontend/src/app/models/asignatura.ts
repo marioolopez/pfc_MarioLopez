@@ -3,7 +3,6 @@ export class Asignatura {
   nombre: string;
   descripcion: string;
   id_usuario: number; //el profesor que la creó
-
   constructor(){
     this.id_asignatura = 0;
     this.nombre = '';

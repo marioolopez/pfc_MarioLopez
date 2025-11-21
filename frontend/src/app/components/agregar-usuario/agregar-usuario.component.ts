@@ -13,22 +13,21 @@ import { Usuarios } from '../../models/usuarios';
 export class AgregarUsuarioComponent {
 
   public usuarioNuevo: Usuarios = new Usuarios();
-
   constructor(public usuarioService: UsuariosService, public rutadevuelta: Router){}
 
   crearUsuario(){
-    if (!this.usuarioNuevo.nombre || !this.usuarioNuevo.email || !this.usuarioNuevo.contrasena || !this.usuarioNuevo.rol) {
+    if(!this.usuarioNuevo.nombre || !this.usuarioNuevo.email || !this.usuarioNuevo.contrasena || !this.usuarioNuevo.rol){
       alert("Por favor, completa todos los campos.");
       return;
     }
 
-    this.usuarioService.registrarUsuario(this.usuarioNuevo).subscribe(() => {
+    this.usuarioService.registrarUsuario(this.usuarioNuevo).subscribe(() =>{
       alert("Usuario creado correctamente");
       this.rutadevuelta.navigate(['/panelAdmin']);
     });
   }
 
-  cancelar() {
+  cancelar(){
     this.rutadevuelta.navigate(['/panelAdmin']);
   }
 

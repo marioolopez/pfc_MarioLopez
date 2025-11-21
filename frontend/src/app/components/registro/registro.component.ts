@@ -17,7 +17,7 @@ export class RegistroComponent {
 
   registrar(f: NgForm){
     if (f.invalid) {
-    alert("Faltan datos antes de iniciar!");
+    alert("faltan datos antes de iniciar!!");
     return;
     }
 

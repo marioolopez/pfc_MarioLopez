@@ -34,36 +34,35 @@ export class AgregarExamenComponent implements OnInit{
     this.cargarExamenes();
   }
 
-  cargarExamenes() {
-    this.examenesService.obtenerExamenes().subscribe((todos) => {
+  cargarExamenes(){
+    this.examenesService.obtenerExamenes().subscribe((todos) =>{
       this.examenes = todos.filter((e) =>
         e.id_asignatura === this.asignaturaSeleccionada!.id_asignatura
       );
     });
   }
 
-  crearExamen() {
+  crearExamen(){
     const usuario = this.usuarioService.usuarioActual;
-    if(!usuario) {
+    if(!usuario){
       alert('No hay usuario logueado');
       return;
     }
-    if(!this.nuevoExamen.titulo.trim()) {
+    if(!this.nuevoExamen.titulo.trim()){
       alert('Escribe un título');
       return;
     }
 
     this.nuevoExamen.id_usuario = usuario.id_usuario;
     this.nuevoExamen.id_asignatura = this.asignaturaSeleccionada!.id_asignatura;
-
-    this.examenesService.crearExamen(this.nuevoExamen).subscribe(() => {
+    this.examenesService.crearExamen(this.nuevoExamen).subscribe(() =>{
       alert('Examen creado correctamente');
       this.nuevoExamen = new Examen();
       this.cargarExamenes();
     });
   }
 
-  //----------------
+  //------------------------------
 
 
   empezarEditar(ex: Examen){
@@ -78,7 +77,7 @@ export class AgregarExamenComponent implements OnInit{
       return;
     }
 
-    this.examenesService.actualizarExamen(this.examenEditar.id_examen, this.examenEditar).subscribe(() => {
+    this.examenesService.actualizarExamen(this.examenEditar.id_examen, this.examenEditar).subscribe(() =>{
       alert('examen actualizado correctamente');
       this.examenEditar = null;
       this.cargarExamenes();
