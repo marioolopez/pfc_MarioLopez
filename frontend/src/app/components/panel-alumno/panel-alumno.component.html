@@ -1,0 +1,31 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">Panel del Alumno</h2>
+
+  <div class="d-flex justify-content-between mb-3">
+    <h5>Exámenes disponibles</h5>
+    <button class="btn btn-outline-primary" (click)="verResultados()">Ver mis resultados</button>
+  </div>
+
+  <table class="table table-striped table-hover" *ngIf="examenes.length; else sinExamenes">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ex of examenes">
+        <td>{{ex.id_examen}}</td>
+        <td>{{ex.titulo}}</td>
+        <td>
+          <button class="btn btn-primary btn-sm" (click)="hacerExamen(ex)">Hacer examen</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #sinExamenes>
+    <p class="text-muted">No hay exámenes disponibles de momento.</p>
+  </ng-template>
+</div>

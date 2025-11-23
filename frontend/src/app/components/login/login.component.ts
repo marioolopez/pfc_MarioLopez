@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component} from '@angular/core';
+import { FormsModule} from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -26,13 +26,11 @@ export class LoginComponent {
         this.router.navigate(['/panelAdmin']); //para el panelAdmin
       }else if (usuario.rol === 'profesor') {
         this.router.navigate(['/panelProfesor']); //para el profesor
-      }else if(usuario.rol === 'alumno'){
-        this.router.navigate(['/']); //para el alumno
+      } else if(usuario.rol === 'alumno'){
+        this.router.navigate(['/panelAlumno']); //para el alumno
       }
-
-    },
-    (err) =>{
-      alert("Error. No se reconocen tus datos!");
+    },(err) =>{
+      alert("error");
     });
   }
 

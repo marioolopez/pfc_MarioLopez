@@ -1,0 +1,41 @@
+<div class="container mt-4" *ngIf="preguntas.length; else sinPreguntas">
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Examen {{examenId}}</h3>
+    <button class="btn btn-outline-secondary" (click)="cancelar()">Volver</button>
+  </div>
+
+  <form (ngSubmit)="enviarExamen()">
+    <div *ngFor="let p of preguntas; let i = index" class="card p-3 mb-3 shadow-sm">
+      <p><strong>{{i + 1}}.</strong> {{p.enunciado}}</p>
+
+      <div class="form-check" *ngIf="p.opcionA">
+        <input class="form-check-input" type="radio" [name]="'preg' + p.id_pregunta" value="A" [(ngModel)]="respuestas[p.id_pregunta]">
+        <label class="form-check-label">A) {{p.opcionA}}</label>
+      </div>
+
+      <div class="form-check" *ngIf="p.opcionB">
+        <input class="form-check-input" type="radio" [name]="'preg' + p.id_pregunta" value="B" [(ngModel)]="respuestas[p.id_pregunta]">
+        <label class="form-check-label">B) {{p.opcionB}}</label>
+      </div>
+
+      <div class="form-check" *ngIf="p.opcionC">
+        <input class="form-check-input" type="radio" [name]="'preg' + p.id_pregunta" value="C" [(ngModel)]="respuestas[p.id_pregunta]">
+        <label class="form-check-label">C) {{p.opcionC}}</label>
+      </div>
+
+      <div class="form-check" *ngIf="p.opcionD">
+        <input class="form-check-input" type="radio" [name]="'preg' + p.id_pregunta" value="D" [(ngModel)]="respuestas[p.id_pregunta]">
+        <label class="form-check-label">D) {{p.opcionD}}</label>
+      </div>
+    </div>
+
+    <button class="btn btn-success w-100" type="submit">Enviar examen</button>
+  </form>
+</div>
+
+<ng-template #sinPreguntas>
+  <div class="container mt-4">
+    <p class="text-muted">no hay preguntas todaviaa</p>
+  </div>
+</ng-template>
