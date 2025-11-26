@@ -14,7 +14,7 @@ const Resultado = sequelize.define("Resultado",{
   timestamps: false
 });
 
-Resultado.belongsTo(Usuario, { foreignKey: "id_usuario", as: "alumno" });
-Resultado.belongsTo(Examen, { foreignKey: "id_examen", as: "examen" });
+Resultado.belongsTo(Usuario,{foreignKey: "id_usuario", as: "alumno"});
+Resultado.belongsTo(Examen,{foreignKey: "id_examen", as: "examen"});
 
 export default Resultado;

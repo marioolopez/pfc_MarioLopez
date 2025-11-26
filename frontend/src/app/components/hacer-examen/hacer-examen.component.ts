@@ -6,7 +6,6 @@ import { PreguntasService } from '../../services/preguntas.service';
 import { ResultadosService } from '../../services/resultados.service';
 import { Pregunta } from '../../models/pregunta';
 import { UsuariosService } from '../../services/usuarios.service';
-
 @Component({
   selector: 'app-hacer-examen',
   standalone: true,
@@ -36,23 +35,23 @@ export class HacerExamenComponent implements OnInit{
     });
   }
 
-  enviarExamen() {
-    const usuario = this.usuarioService.usuarioActual;
-    if (!usuario) {
+  enviarExamen(){
+    const usuario=this.usuarioService.usuarioActual;
+    if(!usuario){
       alert('Debes iniciar sesión');
       this.router.navigate(['/login']);
       return;
     }
 
     //recorre preguntas, coge respuesta marcada por user, lo pongo en mayus, creo un array ordenado y lo mando al backend para correguir (fácil)
-    const respuestasArray = this.preguntas.map(p => ({
+    const respuestasArray =this.preguntas.map(p => ({
       id_pregunta: p.id_pregunta,
       respuesta_usuario: (this.respuestas[p.id_pregunta] || '').toUpperCase()
     }));
 
     this.resultadosService.resolverExamen(this.examenId,usuario.id_usuario,respuestasArray).subscribe((res) => {
-      this.nota = res.nota;
-      alert(`Examen enviado. Nota: ${res.nota.toFixed(2)}/10`);
+      this.nota =res.nota;
+      alert(`Examen enviado.Nota: ${res.nota.toFixed(2)}/10`);
       this.router.navigate(['/misResultados']);
     });
   }

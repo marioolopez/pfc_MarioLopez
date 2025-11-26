@@ -17,7 +17,7 @@ export class MisResultadosComponent implements OnInit{
 
   constructor(public resultadosService: ResultadosService,public usuarioService: UsuariosService,private router: Router){}
 
-  ngOnInit(): void {
+  ngOnInit(): void{
     const usuario = this.usuarioService.usuarioActual;
     if(!usuario) return;
     this.resultadosService.obtenerResultadosAlumno(usuario.id_usuario).subscribe((data) => {
@@ -25,7 +25,7 @@ export class MisResultadosComponent implements OnInit{
     });
   }
 
-  cancelar() {
+  cancelar(){
     this.router.navigate(['/panelAlumno']);
   }
 

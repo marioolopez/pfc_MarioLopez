@@ -5,34 +5,38 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AsignaturasService {
+export class AsignaturasService{
   readonly url = 'http://localhost:4000/api/asignaturas';
   Asig: Asignatura;
   Asignaturas: Array<Asignatura>;
   asignaturaSeleccionada: Asignatura | null = null;
-
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient){
     this.Asig = new Asignatura();
     this.Asignaturas = [];
   }
 
-  crearAsignatura(asig: Asignatura): Observable<any> {
+  //creo mi asig
+  crearAsignatura(asig: Asignatura): Observable<any>{
     return this.http.post(this.url, asig);
   }
 
-  obtenerAsignaturas(): Observable<Asignatura[]> {
+  //obtengo todas asig
+  obtenerAsignaturas(): Observable<Asignatura[]>{
     return this.http.get<Asignatura[]>(this.url);
   }
 
-  obtenerAsignatura(id: number): Observable<Asignatura> {
+  //una asig para actualziar
+  obtenerAsignatura(id: number): Observable<Asignatura>{
     return this.http.get<Asignatura>(`${this.url}/${id}`);
   }
 
-  actualizarAsignatura(id: number, asig: Asignatura): Observable<any> {
+  //actualizar asig
+  actualizarAsignatura(id: number, asig: Asignatura): Observable<any>{
     return this.http.put(`${this.url}/${id}`, asig);
   }
 
-  eliminarAsignatura(id: number): Observable<any> {
+  //eliminar asig
+  eliminarAsignatura(id: number): Observable<any>{
     return this.http.delete(`${this.url}/${id}`);
   }
 }

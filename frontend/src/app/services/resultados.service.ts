@@ -1,12 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Resultado } from '../models/resultado';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Resultado} from '../models/resultado';
 @Injectable({
   providedIn: 'root'
 })
 export class ResultadosService {
-
   private url = 'http://localhost:4000/api';
   constructor(private http: HttpClient){}
 

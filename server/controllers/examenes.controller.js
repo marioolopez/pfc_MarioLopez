@@ -113,7 +113,7 @@ export const eliminarExamen = async (req, res) => {
 
 
 //resolver un examen (el alumno lo hace, se corrige y se guarda la nota)
-export const resolverExamen = async (req, res) => {
+export const resolverExamen = async (req, res) =>{
   try{
     const { id } = req.params; //id del examen
     const { id_usuario, respuestas } = req.body;
@@ -131,7 +131,7 @@ export const resolverExamen = async (req, res) => {
       return res.status(400).json({message: "no se enviaron respuestas"});
     }
 
-    //corregir
+    //para corregir
     let correctas = 0;
     const total = examen.preguntas.length;
 
@@ -141,8 +141,8 @@ export const resolverExamen = async (req, res) => {
       );
       if(!r) return;
 
-      const respUsuario = (r.respuesta_usuario || "").toUpperCase();
-      const respCorrecta = (preg.respuesta_correcta || "").toUpperCase();
+      const respUsuario=(r.respuesta_usuario || "").toUpperCase();
+      const respCorrecta=(preg.respuesta_correcta || "").toUpperCase();
 
       if(respUsuario === respCorrecta) {
         correctas++;

@@ -12,7 +12,7 @@ const Examen = sequelize.define("Examen", {
   timestamps: false
 });
 
-Examen.belongsTo(Asignatura, { foreignKey: "id_asignatura", as: "asignatura" }); //saber a que asignatura pertenece
-Examen.belongsTo(Usuario, { foreignKey: "id_usuario", as: "profesor" }); //que usuario (en este caso profesor) a creado el examen
+Examen.belongsTo(Asignatura,{foreignKey: "id_asignatura", as: "asignatura"}); //saber a que asignatura pertenece
+Examen.belongsTo(Usuario,{foreignKey: "id_usuario", as: "profesor"}); //que usuario (en este caso profesor) a creado el examen
 
 export default Examen;

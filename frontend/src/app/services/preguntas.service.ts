@@ -7,11 +7,10 @@ import { Pregunta } from '../models/pregunta';
   providedIn: 'root'
 })
 export class PreguntasService {
-
   private url = 'http://localhost:4000/api/preguntas';
   constructor(private http: HttpClient){}
 
-  obtenerPreguntas(): Observable<Pregunta[]> {
+  obtenerPreguntas(): Observable<Pregunta[]>{
     return this.http.get<Pregunta[]>(this.url);
   }
 
@@ -25,15 +24,16 @@ export class PreguntasService {
     return this.http.post<Pregunta>(this.url+'/examen/'+idExamen, pregunta);
   }
 
-  //si luego quieres CRUD completo
   obtenerPregunta(id: number): Observable<Pregunta>{
     return this.http.get<Pregunta>(this.url+'/'+id);
   }
 
+  //actualizo pregunta
   actualizarPregunta(id: number, pregunta: Pregunta): Observable<any>{
     return this.http.put(this.url+'/'+id, pregunta);
   }
 
+  //elimino pregunta
   eliminarPregunta(id: number): Observable<any>{
     return this.http.delete(this.url+'/'+id);
   }
