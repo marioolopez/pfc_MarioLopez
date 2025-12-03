@@ -14,11 +14,12 @@ import { UsuariosService } from '../../services/usuarios.service';
   styleUrl: './hacer-examen.component.css'
 })
 export class HacerExamenComponent implements OnInit{
-  public examenId!: number;
+  public examenId!: number; //idexamen del examen que yo tengo
   public preguntas: Pregunta[] = [];
-  public respuestas: {[id_pregunta: number]: string } = {};
-  public nota: number | null = null;
+  public respuestas: {[id_pregunta: number]: string} = {}; //para guardar respuestas del alumno
+  public nota: number | null = null; //guarda nota
 
+  //que examen ha elegido el alumno para poder cargarlo
   constructor(private route: ActivatedRoute, private router: Router, private preguntasService: PreguntasService, public  resultadosService: ResultadosService, public usuarioService: UsuariosService) {}
 
   ngOnInit(): void{

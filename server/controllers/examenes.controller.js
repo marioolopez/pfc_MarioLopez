@@ -139,7 +139,7 @@ export const resolverExamen = async (req, res) =>{
       const r = respuestas.find(
         (resp) => resp.id_pregunta === preg.id_pregunta
       );
-      if(!r) return;
+      if(!r) return;//si no contesta a la pregunta saltamos a la siguiente
 
       const respUsuario=(r.respuesta_usuario || "").toUpperCase();
       const respCorrecta=(preg.respuesta_correcta || "").toUpperCase();
@@ -149,16 +149,22 @@ export const resolverExamen = async (req, res) =>{
       }
     });
 
-    const nota = total > 0 ? (correctas / total) * 10 : 0;
+    //calculo la notaaa
+    let nota = 0;
 
-    //guardar en la tabla resultados
+    if(total > 0){
+      nota = (correctas / total) * 10;
+    }
+
+
+    //guardar en la tabla resultadoss
     const resultado = await Resultado.create({
       id_usuario,
       id_examen: examen.id_examen,
       nota
     });
 
-    //devolver resumen al frontend
+    //devolver resumeen al frontend
     res.json({
       message: "examen corregido",
       nota,
