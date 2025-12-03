@@ -49,7 +49,7 @@ export class UsuariosService {
   }
 
   //cerrarSesion
-  logout() {
+  logout(){
     this.usuarioActual = null;
     this.emailUsuarioLogeado = "";
   }

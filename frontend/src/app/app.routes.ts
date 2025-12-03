@@ -24,5 +24,5 @@ export const routes: Routes = [
   {path: 'panelAlumno', component: PanelAlumnoComponent },
   {path: 'hacerExamen/:id', component: HacerExamenComponent },
   {path: 'misResultados', component:  MisResultadosComponent},
-  {path: '**', redirectTo: '' } //redirige a Home si la ruta no existe
+  {path: '**', redirectTo: ''} //redirigo al home si la ruta no existe
 ];

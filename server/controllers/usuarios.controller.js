@@ -4,20 +4,16 @@ import Usuario from "../models/usuarios.js";
 export const registrarUsuario = async (req, res) => {
   try {
     const { nombre, email, contrasena, rol } = req.body;
-
     if(!nombre || !email || !contrasena){
       return res.status(400).json({ message: "todos los campos son obligatorios" });
     }
-
     if(contrasena.length < 5){
       return res.status(400).json({ message: "la contraseña debe tener al menos 6 caracteres" });
     }
-
     const usuarioExistente = await Usuario.findOne({ where: { email } });
     if(usuarioExistente){
       return res.status(400).json({ message: "el email ya está registrado" });
     }
-
     //creo usu dsps de validacion
     const nuevoUsuario = await Usuario.create({
       nombre,
@@ -41,18 +37,15 @@ export const registrarUsuario = async (req, res) => {
 export const loginUsuario = async (req, res) => {
   try{
     const { email, contrasena } = req.body;
-
     //buscar por email
     const usuario = await Usuario.findOne({where: {email}});
     if(!usuario){
       return res.status(404).json({message:"usuario no encontrado"});
     }
-
     //comprobar contraseña
     if(usuario.contrasena !== contrasena){
       return res.status(401).json({message:"contraseña incorrecta"});
     }
-
     res.json({
       message: "login exitoso",
       usuario: {
@@ -104,13 +97,13 @@ export const obtenerUsuarioPorId = async (req, res) => {
 
 //actualizar usuario
 export const actualizarUsuario = async (req, res) => {
-  try {
+  try{
     const { id } = req.params;
     const { nombre, email, contrasena, rol } = req.body;
 
     const usuario = await Usuario.findByPk(id);
-    if (!usuario) {
-      return res.status(404).json({ message: "usuario no encontrado" });
+    if(!usuario) {
+      return res.status(404).json({message: "usuario no encontrado"});
     }
 
     usuario.nombre = nombre || usuario.nombre;
@@ -119,9 +112,9 @@ export const actualizarUsuario = async (req, res) => {
     usuario.rol = rol || usuario.rol;
 
     await usuario.save();
-    res.json({ message: "el usu se actualizó", usuario });
-  } catch (error) {
-    res.status(500).json({ message: "eerror", error });
+    res.json({message: "el usu se actualizó", usuario});
+  }catch(error) {
+    res.status(500).json({message: "eerror", error});
   }
 };
 

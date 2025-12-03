@@ -16,16 +16,14 @@ export class RegistroComponent {
   constructor(public usuarioService: UsuariosService){}
 
   registrar(f: NgForm){
-    if (f.invalid) {
+    if(f.invalid){
     alert("faltan datos antes de iniciar!!");
     return;
     }
-
     this.usuario.rol = 'alumno';
     this.usuarioService.registrarUsuario(this.usuario).subscribe((res) =>{
       alert("Se ha registrado el usuario!");
       f.reset();//limpio formulario
-
     },(err) =>{
       alert("error al registrar el usuario!");
     });
