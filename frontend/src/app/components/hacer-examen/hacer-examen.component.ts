@@ -36,6 +36,7 @@ export class HacerExamenComponent implements OnInit{
     });
   }
 
+
   enviarExamen(){
     const usuario=this.usuarioService.usuarioActual;
     if(!usuario){
@@ -52,7 +53,7 @@ export class HacerExamenComponent implements OnInit{
 
     this.resultadosService.resolverExamen(this.examenId,usuario.id_usuario,respuestasArray).subscribe((res) => {
       this.nota =res.nota;
-      alert(`Examen enviado.Nota: ${res.nota.toFixed(2)}/10`);
+      alert("Examen enviado.Nota:" +`${res.nota.toFixed(2)}/10`);
       this.router.navigate(['/misResultados']);
     });
   }

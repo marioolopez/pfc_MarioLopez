@@ -22,7 +22,7 @@ export const crearExamen = async (req, res) => {
 export const obtenerExamenes = async (req, res) => {
   try {
     const examenes = await Examen.findAll({
-      include: [
+      include:[
         {model: Asignatura, as: "asignatura"},
         {model: Usuario, as: "profesor"}
       ]
@@ -120,17 +120,16 @@ export const resolverExamen = async (req, res) =>{
 
     //traer el examen con sus preguntas asociadas
     const examen = await Examen.findByPk(id, {
-      include: [{ model: Pregunta, as: "preguntas"}]
+      include: [{model: Pregunta, as: "preguntas"}]
     });
 
-    if(!examen) {
+    if(!examen){
       return res.status(404).json({message: "no se encontro el examn"});
     }
 
     if(!Array.isArray(respuestas) || respuestas.length === 0){
       return res.status(400).json({message: "no se enviaron respuestas"});
     }
-
     //para corregir
     let correctas = 0;
     const total = examen.preguntas.length;
@@ -141,10 +140,10 @@ export const resolverExamen = async (req, res) =>{
       );
       if(!r) return;//si no contesta a la pregunta saltamos a la siguiente
 
-      const respUsuario=(r.respuesta_usuario || "").toUpperCase();
-      const respCorrecta=(preg.respuesta_correcta || "").toUpperCase();
+      const respUsuario=(r.respuesta_usuario||"").toUpperCase();//por si me coge pregunta vacía
+      const respCorrecta=(preg.respuesta_correcta).toUpperCase();
 
-      if(respUsuario === respCorrecta) {
+      if(respUsuario === respCorrecta){
         correctas++;
       }
     });
@@ -155,7 +154,6 @@ export const resolverExamen = async (req, res) =>{
     if(total > 0){
       nota = (correctas / total) * 10;
     }
-
 
     //guardar en la tabla resultadoss
     const resultado = await Resultado.create({

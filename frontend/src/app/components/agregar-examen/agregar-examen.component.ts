@@ -70,7 +70,7 @@ export class AgregarExamenComponent implements OnInit{
   }
 
 
-  guardarEdicion() {
+  guardarEdicion(){
     if(!this.examenEditar) return;
     if(!this.examenEditar.titulo.trim()){
       alert('el título no puede estar vacio');
@@ -103,11 +103,9 @@ export class AgregarExamenComponent implements OnInit{
     this.router.navigate(['/panelProfesor']);
   }
 
-
   abrirPreguntas(ex: Examen){
     this.examenesService.examenSeleccionado = ex;
     this.router.navigate(['/preguntasExamen']);
   }
-
 
 }
