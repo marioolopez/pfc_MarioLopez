@@ -135,7 +135,7 @@ export class PanelProfesorComponent implements OnInit{
 
 
   abrirExamenes(asig: Asignatura) {
-    this.asignaturasService.asignaturaSeleccionada = asig; //guardamos la asignatura
+    this.asignaturasService.asignaturaSeleccionada = asig; //guardamos la asignatura en el servicio
     this.router.navigate(['/agregarExamen']); //navega al componente
   }
 

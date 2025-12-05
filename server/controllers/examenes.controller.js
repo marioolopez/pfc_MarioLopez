@@ -9,8 +9,8 @@ import Resultado from "../models/resultado.js";
 //crear examen
 export const crearExamen = async (req, res) => {
   try {
-    const { titulo, id_asignatura, id_usuario } = req.body;
-    const nuevo = await Examen.create({ titulo, id_asignatura, id_usuario });
+    const {titulo, id_asignatura, id_usuario} = req.body;
+    const nuevo = await Examen.create({titulo, id_asignatura, id_usuario});
     res.status(201).json(nuevo);
   } catch (error) {
     res.status(500).json({message: "errror", error});
